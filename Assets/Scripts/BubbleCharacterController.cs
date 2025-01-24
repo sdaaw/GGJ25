@@ -40,11 +40,6 @@ public class BubbleCharacterController : MonoBehaviour
 
         //if(isGameActive) return;
 
-        /*
-        _camera.transform.position = new Vector3(
-            transform.position.x + _cameraOffset.x,
-            transform.position.y + _cameraOffset.y,
-            transform.position.z + _cameraOffset.z);*/
 
 
 
@@ -67,7 +62,6 @@ public class BubbleCharacterController : MonoBehaviour
         Vector3 dir = new Vector3(0, 0, -_cameraDistance);
         Quaternion rotation = Quaternion.Euler(mousey, mousex, 0);
         _camera.transform.position = transform.position + rotation * dir;
-
         _camera.transform.LookAt(transform.position);
     }
 
