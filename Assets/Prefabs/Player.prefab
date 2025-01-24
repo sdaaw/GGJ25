@@ -31,7 +31,7 @@ Transform:
   m_GameObject: {fileID: 3443882638611187576}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -14.97, y: 3.24, z: 16.89}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -126,6 +126,8 @@ MonoBehaviour:
   _displacementSpeedMin: 0.5
   _displacementSpeedMax: 1.2
   _displacementPower: 0.4
+  BubbleSize: 0
+  _bubbleStartSize: 2
 --- !u!114 &383411004486881869
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -139,9 +141,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _movementSpeed: 10
-  _mouseSensitivity: 50
+  _mouseSensitivity: 75
   _cameraFov: 90
   _cameraDistance: 10
+  _ycameraClampMin: 5
+  _ycameraClampMax: 70
 --- !u!143 &-3511334203360452480
 CharacterController:
   m_ObjectHideFlags: 0

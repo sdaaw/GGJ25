@@ -5,6 +5,7 @@ using static UnityEditor.SceneView;
 using UnityEngine.InputSystem.XR;
 using static UnityEditor.ShaderGraph.Internal.KeywordDependentCollection;
 using static UnityEngine.GraphicsBuffer;
+using System.Collections;
 
 public class BubbleCharacterController : MonoBehaviour
 {
@@ -26,11 +27,16 @@ public class BubbleCharacterController : MonoBehaviour
 
     private CharacterController _controller;
 
+    private BubbleBehaviour _bubble;
+
+    [SerializeField]
+    private float _ycameraClampMin, _ycameraClampMax;
     void Start()
     {
         _camera = Camera.main;
         Cursor.lockState = CursorLockMode.Locked;
         _controller = GetComponent<CharacterController>();
+        _bubble = GetComponent<BubbleBehaviour>();
         //_camera.transform.SetParent(transform, false);
     }
 
@@ -39,13 +45,47 @@ public class BubbleCharacterController : MonoBehaviour
     {
 
         //if(isGameActive) return;
+        if(Input.GetKeyDown(KeyCode.Q))
+        {
+            _bubble.DisplacementPower -= 0.1f;
+        }
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            _bubble.DisplacementPower += 0.1f;
+        }
+        if (Input.GetKeyDown(KeyCode.PageUp))
+        {
+            _bubble.DisplacementSpeed += 0.1f;
+        }
+        if (Input.GetKeyDown(KeyCode.PageDown))
+        {
+            _bubble.DisplacementSpeed -= 0.1f;
+        }
 
-
-
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            TakeDamage(0.1f);
+        }
 
         HandleInput();
     }
 
+    public void TakeDamage(float amount)
+    {
+        _bubble.BubbleSize -= amount;
+        StartCoroutine(DamageVisual());
+    }
+
+    IEnumerator DamageVisual()
+    {
+        float visualIntensity = 4f;
+        _bubble.DisplacementPower *= visualIntensity;
+        _bubble.DisplacementSpeed *= visualIntensity;
+        yield return new WaitForSeconds(0.5f);
+        _bubble.DisplacementPower /= visualIntensity;
+        _bubble.DisplacementSpeed /= visualIntensity;
+    }
+ 
     void LateUpdate()
     {
         MouseCameraRotation();
@@ -55,9 +95,9 @@ public class BubbleCharacterController : MonoBehaviour
     private void MouseCameraRotation()
     {
         mousex += Input.GetAxis("Mouse X") * _mouseSensitivity * Time.fixedUnscaledDeltaTime;
-        mousey += Input.GetAxis("Mouse Y") * _mouseSensitivity * Time.fixedUnscaledDeltaTime;
+        mousey -= Input.GetAxis("Mouse Y") * _mouseSensitivity * Time.fixedUnscaledDeltaTime;
 
-        mousey = Mathf.Clamp(mousey, 5, 50);
+        mousey = Mathf.Clamp(mousey, _ycameraClampMin, _ycameraClampMax);
 
         Vector3 dir = new Vector3(0, 0, -_cameraDistance);
         Quaternion rotation = Quaternion.Euler(mousey, mousex, 0);

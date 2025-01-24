@@ -7730,6 +7730,7 @@ MonoBehaviour:
   _allu: {fileID: 1518320099}
   _screenFadeImage: {fileID: 303876558}
   _gameLogo: {fileID: 1473183424}
+  _fgjLogo: {fileID: 1166106630}
   _bgm: {fileID: 8300000, guid: a5abbfd00a990b34aa51bea3a45dcf1a, type: 3}
   _bgmIntro: {fileID: 8300000, guid: 2f4541e8449c892498d5f2e39216803c, type: 3}
   _logoText: {fileID: 284306273}
