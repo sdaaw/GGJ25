@@ -99,6 +99,11 @@ public class ShootingEnemy : Enemy
 
     }
 
+    public void CheckPlayerAgroRange()
+    {
+
+    }
+
     IEnumerator muzzleFlash()
     {
         _muzzleFlash.SetActive(true);
