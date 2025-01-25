@@ -9,7 +9,7 @@ public class MenuIntro : MonoBehaviour
     [SerializeField]
     private Image _allu, _screenFadeImage, _gameLogo, _fgjLogo;
 
-    private AudioSource _audioSource;
+    private AudioSource _bgmAudioSource;
 
     [SerializeField]
     private AudioClip _bgm, _bgmIntro;
@@ -47,7 +47,7 @@ public class MenuIntro : MonoBehaviour
 
 
 
-        _audioSource = GetComponent<AudioSource>();
+        _bgmAudioSource = GetComponent<AudioSource>();
         //_audioSource.clip = _bgmIntro;
         //_audioSource.Play();
         _allu.color = new Color(_allu.color.r, _allu.color.g, _allu.color.b, 0f);
@@ -62,8 +62,8 @@ public class MenuIntro : MonoBehaviour
         if(Input.GetKeyUp(KeyCode.R))
         {
             _gameActive = true;
-            _audioSource.clip = _bgmIntro;
-            _audioSource.Play();
+            _bgmAudioSource.clip = _bgmIntro;
+            _bgmAudioSource.Play();
         }
 
         if(!_gameActive)
@@ -72,10 +72,10 @@ public class MenuIntro : MonoBehaviour
         }
 
         _timer += 1 * Time.deltaTime;
-        if(_timer >= _audioSource.clip.length)
+        if(_timer >= _bgmAudioSource.clip.length)
         {
-            _audioSource.clip = _bgm;
-            _audioSource.Play();
+            _bgmAudioSource.clip = _bgm;
+            _bgmAudioSource.Play();
             _timer = 0;
         }
 
@@ -94,6 +94,11 @@ public class MenuIntro : MonoBehaviour
         } else
         {
             FadeCharacterArtIn();
+        }
+
+        if(MenuControls.Instance.IsPreparingGame)
+        {
+            _bgmAudioSource.volume -= 0.5f * Time.deltaTime;
         }
     }
 

@@ -65,7 +65,7 @@ public class BubbleCharacterController : Entity
     void Update()
     {
         if(GameManager.instance != null && (GameManager.instance.IsPlayerFrozen || 
-           GameManager.instance.GameStateHandler.CurrentState == GameStateHandler.GameState.Paused)) return;
+           GameManager.instance.StateHandler.CurrentState == GameStateHandler.GameState.Paused)) return;
 
         if(Input.GetKeyDown(KeyCode.Q))
         {

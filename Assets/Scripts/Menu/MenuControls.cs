@@ -31,7 +31,7 @@ public class MenuControls : MonoBehaviour
     private Image _whiteFadeInScreen;
 
     [SerializeField]
-    private AudioClip _sfxMenuNavigate, _sfxMenuConfirm;
+    private AudioClip _sfxMenuNavigate, _sfxMenuGameStart;
 
     public static MenuControls Instance;
 
@@ -40,6 +40,7 @@ public class MenuControls : MonoBehaviour
 
     public float elementAnimSpeed;
 
+    public bool IsPreparingGame;
     public enum MenuState
     {
         None,
@@ -102,7 +103,7 @@ public class MenuControls : MonoBehaviour
         {
             if (CurrentState != MenuState.None) return;
 
-            StartCoroutine(HandleMenuSelectDelay(_selectedMenuObject.GetComponent<MenuSelectable>().MenuState));
+            StartCoroutine(HandleMenuSelectDelay(_selectedMenuObject.GetComponent<MenuSelectable>().MenuState, 1f));
         }
     }
 
@@ -114,12 +115,17 @@ public class MenuControls : MonoBehaviour
         _pointerBall.GetComponent<PointerBall>().MoveSelectionBall(_selectedMenuObject.GetComponent<MenuSelectable>().SquarePosition());
     }
 
-    IEnumerator HandleMenuSelectDelay(MenuState NextState)
+    IEnumerator HandleMenuSelectDelay(MenuState NextState, float delay)
     {
+        if(NextState == MenuState.StartGame)
+        {
+            delay = 4f;
+            IsPreparingGame = true;
+        }
         //menu select sound here
-        _audioSource.clip = _sfxMenuConfirm;
+        _audioSource.clip = _sfxMenuGameStart;
         _audioSource.Play();
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(delay);
         CurrentState = NextState;
         CheckStates();
     }
