@@ -17,7 +17,7 @@ public class BubbleBehaviour : MonoBehaviour
     public float BubbleSize;
 
     [SerializeField]
-    private float _bubbleStartSize;
+    private float _bubbleStartSize, _bubbleStartDisplacementPower;
 
     private float _bubbleSpeed;
 
@@ -26,6 +26,15 @@ public class BubbleBehaviour : MonoBehaviour
 
 
     public Color damagedColorTint;
+
+    public bool IsMoving;
+
+    private float _moveDisplacementPower;
+
+    [SerializeField]  
+    private Material[] _faceMaterialFrames;
+
+    private float _elapsedTime, _elapsedTime2;
 
     public Color BubbleColorTint
     {
@@ -39,6 +48,8 @@ public class BubbleBehaviour : MonoBehaviour
             _renderer.material.SetColor("_BubbleColorTint", _colorTint);
         }
     }
+
+
 
 
     public float DisplacementPower 
@@ -100,12 +111,20 @@ public class BubbleBehaviour : MonoBehaviour
         _bubbleSpeed = Random.Range(_displacementSpeedMin, _displacementSpeedMax);
         _renderer.material.SetFloat("_DisplacementSpeed", _bubbleSpeed);
         _renderer.material.SetFloat("_DisplacementPower", _displacementPower);
+        _bubbleStartDisplacementPower = _displacementPower;
         transform.localScale = new Vector3(_bubbleStartSize, _bubbleStartSize, _bubbleStartSize);
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if(IsMoving)
+        {
+            DisplacementPower = _bubbleStartDisplacementPower * 2f;
+        } else
+        {
+            DisplacementPower = _bubbleStartDisplacementPower;
+        }
     }
+
 }

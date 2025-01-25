@@ -40,6 +40,9 @@ public class BubbleCharacterController : Entity
 
     public LayerMask testLayer;
 
+    [SerializeField]
+    private Animator _faceAnimator;
+
     private void Awake()
     {
         _bubble = GetComponent<BubbleBehaviour>();
@@ -87,6 +90,7 @@ public class BubbleCharacterController : Entity
                 IsInvulnerable = true;
             }  
             */
+            _faceAnimator.SetTrigger("DamageTrigger");
             CurrentHealth -= 0.5f;
         }
 
@@ -257,13 +261,14 @@ public class BubbleCharacterController : Entity
         float x = Input.GetAxis("Horizontal") * _movementSpeed * Time.deltaTime;
         float y = Input.GetAxis("Vertical") * _movementSpeed * Time.deltaTime;
 
+
         Vector3 movement = _camera.transform.right * x + _camera.transform.forward * y;
         movement.y = 0f;
 
         _controller.Move(movement);
-
         if (movement.magnitude != 0f)
         {
+            _bubble.IsMoving = true;
             transform.Rotate(Vector3.up * Input.GetAxis("Mouse X") * _mouseSensitivity * Time.deltaTime);
 
 
@@ -273,6 +278,9 @@ public class BubbleCharacterController : Entity
 
             transform.rotation = Quaternion.Lerp(transform.rotation, CamRotation, 0.1f);
 
+        } else
+        {
+            _bubble.IsMoving = false;
         }
     }
 }
