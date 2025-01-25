@@ -58,9 +58,8 @@ public class BubbleCharacterController : Entity
     // is called once per frame
     void Update()
     {
-
-        if(GameManager.instance.IsPlayerFrozen || 
-           GameManager.instance.GameStateHandler.CurrentState == GameStateHandler.GameState.Paused) return;
+        if(GameManager.instance != null && (GameManager.instance.IsPlayerFrozen || 
+           GameManager.instance.GameStateHandler.CurrentState == GameStateHandler.GameState.Paused)) return;
 
         if(Input.GetKeyDown(KeyCode.Q))
         {
