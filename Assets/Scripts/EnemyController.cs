@@ -7,20 +7,20 @@ public class EnemyController : MonoBehaviour
 {
     public List<EnemyWave> enemyWaves = new List<EnemyWave>();
     public EnemyWave currentWave;
-    // public int nextWaveIndex = 0;
+    public int nextWaveIndex = 0;
 
     [SerializeField]
     private TMP_Text _enemyRemainingText;
 
     public void Update()
     {
-        /*if (Input.GetKeyDown(KeyCode.Alpha1))
+        if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             // TODO: needs last wave logic
             SpawnWave(enemyWaves[nextWaveIndex]);
             currentWave = enemyWaves[nextWaveIndex];
             nextWaveIndex++;
-        }*/
+        }
 
         if (_enemyRemainingText != null && currentWave != null)
         {
