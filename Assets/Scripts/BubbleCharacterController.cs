@@ -6,6 +6,8 @@ using UnityEngine.InputSystem.XR;
 using static UnityEditor.ShaderGraph.Internal.KeywordDependentCollection;
 using static UnityEngine.GraphicsBuffer;
 using System.Collections;
+using System.Collections.Generic;
+using static UnityEngine.EventSystems.EventTrigger;
 
 public class BubbleCharacterController : Entity
 {
@@ -107,6 +109,7 @@ public class BubbleCharacterController : Entity
         }
 
         HandleInput();
+        HandleDamageCollider();
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -116,7 +119,72 @@ public class BubbleCharacterController : Entity
         ContactPoint[] contacts = collision.contacts;
 
         //_bubble.HitBubble(transform.InverseTransformPoint(contacts[0].point));
+
+        if (collision.collider.gameObject.GetComponent<Entity>())
+        {
+            var e = collision.collider.gameObject.GetComponent<Entity>();
+            entitiesInsideCollider.Add(e);
+        }
     }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        if (collision == null) return;
+
+        ContactPoint[] contacts = collision.contacts;
+
+        //_bubble.HitBubble(transform.InverseTransformPoint(contacts[0].point));
+
+        if(collision.collider.gameObject.GetComponent<Entity>())
+        {
+            var e = collision.collider.gameObject.GetComponent<Entity>();
+            if (entitiesInsideCollider.Contains(e))
+            {
+                entitiesInsideCollider.Remove(e);
+            }
+        }
+
+    }
+
+    [SerializeField]
+    private float _damageTickTimer = 0.5f;
+    private float _timer;
+    public List<Entity> entitiesInsideCollider = new List<Entity>();
+
+    [SerializeField]
+    private float _tickDamage;
+
+    protected void HandleDamageCollider()
+    {
+        if (_timer > 0)
+        {
+            _timer -= Time.deltaTime;
+        } 
+        else
+        {
+            _timer = _damageTickTimer;
+            // tick dmg on all colliders inside
+            DoDamageToColliders();
+        }
+    }
+
+    protected void DoDamageToColliders()
+    {
+        for (int i = entitiesInsideCollider.Count - 1; i >= 0; i--)
+        {
+            var entity = entitiesInsideCollider[i];
+            if (entity.type != EntityType.Player)
+            {
+                if ((entity.CurrentHealth - _tickDamage) <= 0)
+                {
+                    entitiesInsideCollider.Remove(entity);
+                }
+
+                entity.CurrentHealth -= _tickDamage;
+            }
+        }
+    }
+
 
     protected override void OnHealthChanged(float amount)
     {

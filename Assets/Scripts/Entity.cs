@@ -63,7 +63,10 @@ public class Entity : MonoBehaviour
 
         if (_currentHealth <= 0)
         {
-            GameManager.instance.EntitiesInWorld.Remove(gameObject);
+            if (GameManager.instance != null)
+            {
+                GameManager.instance.EntitiesInWorld.Remove(gameObject);
+            }
             OnDie();
         }
     }
@@ -78,6 +81,7 @@ public class Entity : MonoBehaviour
 
         var econ = FindFirstObjectByType<EnemyController>();
         var enemy = this.GetComponent<Enemy>();
+
         if (econ.currentWave.currentWaveEnemies.Contains(enemy))
         {
             econ.currentWave.currentWaveEnemies.Remove(enemy);
