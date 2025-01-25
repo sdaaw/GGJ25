@@ -548,6 +548,7 @@ MonoBehaviour:
   hasDeathAnim: 0
   _animator: {fileID: 0}
   scoreAmount: 15
+  entityConsumeThreshold: 5
 --- !u!1 &705543696
 GameObject:
   m_ObjectHideFlags: 0
@@ -581,10 +582,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 1
-  _currentHealth: 1000
+  _currentHealth: 5
   hasDeathAnim: 0
   _animator: {fileID: 0}
-  scoreAmount: 0
+  scoreAmount: 15
+  entityConsumeThreshold: 15
 --- !u!65 &705543698
 BoxCollider:
   m_ObjectHideFlags: 0

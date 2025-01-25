@@ -180,15 +180,18 @@ public class BubbleCharacterController : Entity
             var entity = entitiesInsideCollider[i];
             if (entity.type != EntityType.Player)
             {
-                if ((entity.CurrentHealth - _tickDamage) <= 0)
+                if (entity.entityConsumeThreshold <= CurrentHealth)
                 {
-                    // increase size + hp
-                    CurrentHealth += entity.scoreAmount;
+                    if ((entity.CurrentHealth - _tickDamage) <= 0)
+                    {
+                        // increase size + hp
+                        CurrentHealth += entity.scoreAmount;
 
-                    entitiesInsideCollider.Remove(entity);
+                        entitiesInsideCollider.Remove(entity);
+                    }
+
+                    entity.CurrentHealth -= _tickDamage;
                 }
-
-                entity.CurrentHealth -= _tickDamage;
             }
         }
     }
