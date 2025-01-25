@@ -160,6 +160,7 @@ MonoBehaviour:
   testLayer:
     serializedVersion: 2
     m_Bits: 0
+  _tickDamage: 1
 --- !u!143 &-3511334203360452480
 CharacterController:
   m_ObjectHideFlags: 0

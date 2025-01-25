@@ -28,6 +28,7 @@ public class Enemy : Entity
 
     private BubbleCharacterController _player;
 
+    [SerializeField]
     private float _healthBarRange = 30;
 
     private Camera _cam;
@@ -42,6 +43,8 @@ public class Enemy : Entity
         _player = FindFirstObjectByType<BubbleCharacterController>();
         _cam = Camera.main;
         _maxHealth = CurrentHealth;
+
+        healthBar = GetComponentInChildren<Slider>();
 
         if (healthBar)
             _barStartColor = healthBar.colors.normalColor;
@@ -123,6 +126,7 @@ public class Enemy : Entity
             if (!healthBar.gameObject.activeSelf)
                 healthBar.gameObject.SetActive(true);
         }
+
 
         healthBar.value = CurrentHealth / _maxHealth;
         healthBar.transform.LookAt(healthBar.transform.position + _cam.transform.rotation * Vector3.back,

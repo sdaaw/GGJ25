@@ -148,14 +148,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 1
-  _currentHealth: 1
+  _currentHealth: 3
   hasDeathAnim: 0
   _animator: {fileID: 0}
+  scoreAmount: 2
   target: {fileID: 0}
   _targetPosition: {x: 0, y: 0, z: 0}
   _isEnabled: 1
   chaseTarget: 1
   _timerMax: 1
+  _healthBarRange: 30
   _muzzleFlash: {fileID: 0}
   _bullet: {fileID: 7042849527460013837, guid: cd9d750899cfa9d4291db42bd759780f, type: 3}
   _bulletVelocity: 100
@@ -182,6 +184,10 @@ PrefabInstance:
     - target: {fileID: 3381003672769405224, guid: ad7507343ec95954082084379dadc1bc, type: 3}
       propertyPath: m_Name
       value: Canvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 3838636309619226725, guid: ad7507343ec95954082084379dadc1bc, type: 3}
+      propertyPath: m_Value
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6731028111397529282, guid: ad7507343ec95954082084379dadc1bc, type: 3}
       propertyPath: m_Pivot.x
