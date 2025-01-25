@@ -8,7 +8,7 @@ public class BubbleBehaviour : MonoBehaviour
 
 
     [SerializeField]
-    private float _displacementSpeedMin, _displacementSpeedMax, _displacementPower;
+    private float _displacementSpeedMin, _displacementSpeedMax, _displacementPower, _outerGlowWidth;
 
     private Renderer _renderer;
 
@@ -19,6 +19,25 @@ public class BubbleBehaviour : MonoBehaviour
     private float _bubbleStartSize;
 
     private float _bubbleSpeed;
+
+    [SerializeField]
+    private Color _colorTint;
+
+
+    public Color damagedColorTint;
+
+    public Color BubbleColorTint
+    {
+        get
+        {
+            return _colorTint;
+        }
+        set
+        {
+            _colorTint = value;
+            _renderer.material.SetColor("_BubbleColorTint", _colorTint);
+        }
+    }
 
 
     public float DisplacementPower 
@@ -33,6 +52,21 @@ public class BubbleBehaviour : MonoBehaviour
             _renderer.material.SetFloat("_DisplacementPower", _displacementPower);
         } 
     }
+
+    public float OuterGlowWidth
+    {
+        get
+        {
+            return _outerGlowWidth;
+        }
+        set
+        {
+            _outerGlowWidth = value;
+            _renderer.material.SetFloat("_OuterGlow", _outerGlowWidth);
+        }
+    }
+
+
 
     public float DisplacementSpeed
     {
@@ -62,10 +96,4 @@ public class BubbleBehaviour : MonoBehaviour
     {
         
     }
-
-    public void IncreaseSize()
-    {
-
-    }
-
 }

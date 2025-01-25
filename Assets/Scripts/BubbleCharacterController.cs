@@ -31,8 +31,12 @@ public class BubbleCharacterController : MonoBehaviour
 
     [SerializeField]
     private float _ycameraClampMin, _ycameraClampMax;
+
+    private Color _originalColor;
+
     void Start()
     {
+
         _camera = Camera.main;
         Cursor.lockState = CursorLockMode.Locked;
         _controller = GetComponent<CharacterController>();
@@ -76,14 +80,23 @@ public class BubbleCharacterController : MonoBehaviour
         StartCoroutine(DamageVisual());
     }
 
+    public void IncreaseSize()
+    {
+    }
+
     IEnumerator DamageVisual()
     {
+        _originalColor = _bubble.BubbleColorTint;
         float visualIntensity = 4f;
+        _bubble.BubbleColorTint = _bubble.damagedColorTint;
         _bubble.DisplacementPower *= visualIntensity;
         _bubble.DisplacementSpeed *= visualIntensity;
+        _bubble.OuterGlowWidth -= 1;
         yield return new WaitForSeconds(0.5f);
         _bubble.DisplacementPower /= visualIntensity;
         _bubble.DisplacementSpeed /= visualIntensity;
+        _bubble.OuterGlowWidth += 1;
+        _bubble.BubbleColorTint = _originalColor;
     }
  
     void LateUpdate()
