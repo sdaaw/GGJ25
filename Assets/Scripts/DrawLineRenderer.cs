@@ -3,10 +3,13 @@ using UnityEngine;
 
 public class DrawLineRenderer : MonoBehaviour
 {
+    public LayerMask IgnoreLayer;
     public LineRenderer lineRenderer;
     public int vertexCount = 32; // Number of vertices in the curve
     public float lineWidth = 0.2f; // Width of the line
-    public float curveHeight = 10;
+    public float curveHeight = 15;
+    public float maxRadius = 20;
+    public bool ShootMode = false;
 
     [SerializeField]
     private Vector3 _mousePos;
@@ -19,10 +22,10 @@ public class DrawLineRenderer : MonoBehaviour
 
     private void Awake()
     {
+        ShootMode = false;
         if(_targetSpherePrefab)
         {
             _targetSphere = GameObject.Instantiate(_targetSpherePrefab, transform.position, Quaternion.identity);
-            // _targetSphere.SetActive(false);
         }
     }
 
@@ -34,25 +37,61 @@ public class DrawLineRenderer : MonoBehaviour
         }
         lineRenderer.startWidth = lineWidth;
         lineRenderer.endWidth = lineWidth;
+
+        lineRenderer.enabled = false;
+        if (_targetSphere != null)
+        {
+            _targetSphere.SetActive(false);
+        }
     }
 
     private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            ShootMode = !ShootMode;
+            if (ShootMode)
+            {
+                Cursor.lockState = CursorLockMode.Confined;
+                lineRenderer.enabled = true;
+                if (_targetSphere != null)
+                {
+                    _targetSphere.SetActive(true);
+                    // TODO: disable movement?
+                }
+            } 
+            else
+            {
+                Cursor.lockState = CursorLockMode.Locked;
+                lineRenderer.enabled = false;
+                if (_targetSphere != null)
+                {
+                    _targetSphere.SetActive(false);
+                }
+            }
+        }
+
         var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
         var hit = new RaycastHit();
 
-        if (Physics.Raycast(ray, out hit))
+        if (Physics.Raycast(ray, out hit, 100, ~IgnoreLayer))
         {
             _mousePos = hit.point;
         }
+
+        // clamp mouseposition to max radius
+        var difference = _mousePos - transform.position;
+        var direction = difference.normalized;
+        var distance = Mathf.Min(maxRadius, difference.magnitude);
+        var endPosition = transform.position + direction * distance;
 
         var pointList = new List<Vector3>();
 
         for (float ratio = 0; ratio <= 1; ratio += 1.0f / vertexCount)
         {
-            var tangent1 = Vector3.Lerp(transform.position, (transform.position + _mousePos) / 2 + Vector3.up * curveHeight, ratio);
-            var tangent2 = Vector3.Lerp((transform.position + _mousePos) / 2 + Vector3.up * curveHeight, _mousePos, ratio);
+            var tangent1 = Vector3.Lerp(transform.position, (transform.position + endPosition) / 2 + Vector3.up * curveHeight, ratio);
+            var tangent2 = Vector3.Lerp((transform.position + endPosition) / 2 + Vector3.up * curveHeight, endPosition, ratio);
             var curve = Vector3.Lerp(tangent1, tangent2, ratio);
             pointList.Add(curve);
         }
@@ -60,12 +99,13 @@ public class DrawLineRenderer : MonoBehaviour
         lineRenderer.positionCount = pointList.Count;
         lineRenderer.SetPositions(pointList.ToArray());
 
-        _targetSphere.transform.position = _mousePos;
+        _targetSphere.transform.position = endPosition;
 
 
         if (Input.GetMouseButtonDown(0))
         {
-            Debug.Log(_mousePos);
+            Debug.Log(endPosition);
+            // TODO: shoot/fire projectile
         }
     }
 }
