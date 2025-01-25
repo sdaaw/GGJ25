@@ -1491,6 +1491,7 @@ MonoBehaviour:
   _text: {fileID: 1496008743}
   _mirroredText: {fileID: 1447448261}
   IsSelected: 0
+  MenuState: 3
 --- !u!1 &990293337
 GameObject:
   m_ObjectHideFlags: 0
@@ -6612,6 +6613,7 @@ MonoBehaviour:
   _text: {fileID: 518915376}
   _mirroredText: {fileID: 122312919}
   IsSelected: 0
+  MenuState: 1
 --- !u!224 &1219853280
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7608,16 +7610,19 @@ MonoBehaviour:
   - {fileID: 1219853278}
   - {fileID: 1870812235}
   - {fileID: 790160232}
-  _selectorBall: {fileID: 1924364830}
+  _pointerBall: {fileID: 1924364830}
   selectedColor: {r: 0.24528301, g: 0.24528301, b: 0.24528301, a: 1}
   unselectedColor: {r: 0.8113208, g: 0.8113208, b: 0.8113208, a: 0.7607843}
   _audioSource: {fileID: 51785127}
+  _whiteFadeInScreen: {fileID: 0}
   _sfxMenuNavigate: {fileID: 8300000, guid: 15be04d17758f73408f2bacdc0526443, type: 3}
+  _sfxMenuConfirm: {fileID: 8300000, guid: 4815f5df69d942b42a94270f229f69d3, type: 3}
   xsway: 1.5
   xtime: 2
   ysway: 1.2
   ytime: 4
   elementAnimSpeed: 3.5
+  CurrentState: 0
 --- !u!82 &1642213101
 AudioSource:
   m_ObjectHideFlags: 0
@@ -7887,6 +7892,7 @@ MonoBehaviour:
   _text: {fileID: 1885706206}
   _mirroredText: {fileID: 427506609}
   IsSelected: 0
+  MenuState: 2
 --- !u!224 &1870812237
 RectTransform:
   m_ObjectHideFlags: 0
