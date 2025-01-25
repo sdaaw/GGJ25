@@ -775,6 +775,10 @@ PrefabInstance:
       propertyPath: maxRadius
       value: 20
       objectReference: {fileID: 0}
+    - target: {fileID: 944747237576655912, guid: 6b0734d1ac1f8064c9db90f2f28d2eda, type: 3}
+      propertyPath: _projectilePrefab
+      value: 
+      objectReference: {fileID: 6824460163936597999, guid: de4a9c042a0349c4e94fe6eed9293e7a, type: 3}
     - target: {fileID: 1103173672366093893, guid: 6b0734d1ac1f8064c9db90f2f28d2eda, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

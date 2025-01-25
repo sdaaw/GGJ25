@@ -19,6 +19,10 @@ public class DrawLineRenderer : MonoBehaviour
     [SerializeField]
     private GameObject _targetSpherePrefab;
 
+    [SerializeField]
+    private GameObject _projectilePrefab;
+
+    private List<Vector3> pointList = new List<Vector3>();
 
     private void Awake()
     {
@@ -86,7 +90,7 @@ public class DrawLineRenderer : MonoBehaviour
         var distance = Mathf.Min(maxRadius, difference.magnitude);
         var endPosition = transform.position + direction * distance;
 
-        var pointList = new List<Vector3>();
+        pointList.Clear();
 
         for (float ratio = 0; ratio <= 1; ratio += 1.0f / vertexCount)
         {
@@ -106,6 +110,18 @@ public class DrawLineRenderer : MonoBehaviour
         {
             Debug.Log(endPosition);
             // TODO: shoot/fire projectile
+            
+            var projectile = GameObject.Instantiate(_projectilePrefab, transform.position, Quaternion.identity);
+            var p = projectile.GetComponent<Projectile>();
+            if(p)
+            {
+                p.startPos = transform.position;
+                p.finalPosition = endPosition;
+                p.curveHeight = curveHeight;
+                p.velocity = 15;
+                // p.pointList = pointList;
+                // p.enabled = true;
+            }
         }
     }
 }
