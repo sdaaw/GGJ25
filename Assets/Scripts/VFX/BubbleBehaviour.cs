@@ -81,6 +81,13 @@ public class BubbleBehaviour : MonoBehaviour
         }
     }
 
+    public void HitBubble(Vector3 pos)
+    {
+        print(pos);
+        if (pos == Vector3.zero) return;
+        _renderer.material.SetVector("_HitPoint", pos);
+    }
+
     void Start()
     {
         BubbleSize = _bubbleStartSize;

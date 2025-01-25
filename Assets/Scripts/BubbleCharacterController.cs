@@ -34,6 +34,9 @@ public class BubbleCharacterController : MonoBehaviour
 
     private Color _originalColor;
 
+    public bool IsInvulnerable;
+
+    public LayerMask testLayer;
     void Start()
     {
 
@@ -44,7 +47,8 @@ public class BubbleCharacterController : MonoBehaviour
         //_camera.transform.SetParent(transform, false);
     }
 
-    // Update is called once per frame
+    // Update
+    // is called once per frame
     void Update()
     {
 
@@ -71,12 +75,30 @@ public class BubbleCharacterController : MonoBehaviour
             TakeDamage(0.1f);
         }
 
+        if(Input.GetMouseButton(0))
+        {
+            Ray r = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+            if(Physics.Raycast(r, out hit, Mathf.Infinity))
+            {
+                print(hit.transform.gameObject.name);
+                print(r.origin + " -> " + hit.point);
+                Debug.DrawLine(r.origin, hit.point, Color.red, 20f);
+                if (hit.transform.GetComponent<BubbleBehaviour>() == null) return;
+
+                hit.transform.GetComponent<BubbleBehaviour>().HitBubble(hit.transform.InverseTransformPoint(hit.point));
+            }
+        }
+
         HandleInput();
     }
 
     public void TakeDamage(float amount)
     {
+        if (IsInvulnerable) return;
+        IsInvulnerable = true;
         _bubble.BubbleSize -= amount;
+        transform.localScale -= new Vector3(1, 1, 1) * amount;
         StartCoroutine(DamageVisual());
     }
 
@@ -97,8 +119,8 @@ public class BubbleCharacterController : MonoBehaviour
         _bubble.DisplacementSpeed /= visualIntensity;
         _bubble.OuterGlowWidth += 1;
         _bubble.BubbleColorTint = _originalColor;
+        IsInvulnerable = false;
     }
- 
     void LateUpdate()
     {
         MouseCameraRotation();
