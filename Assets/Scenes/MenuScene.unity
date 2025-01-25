@@ -7616,12 +7616,13 @@ MonoBehaviour:
   _audioSource: {fileID: 51785127}
   _whiteFadeInScreen: {fileID: 0}
   _sfxMenuNavigate: {fileID: 8300000, guid: 15be04d17758f73408f2bacdc0526443, type: 3}
-  _sfxMenuConfirm: {fileID: 8300000, guid: 4815f5df69d942b42a94270f229f69d3, type: 3}
+  _sfxMenuGameStart: {fileID: 8300000, guid: 912494aabb6c50948ae17f6a6402b001, type: 3}
   xsway: 1.5
   xtime: 2
   ysway: 1.2
   ytime: 4
   elementAnimSpeed: 3.5
+  IsPreparingGame: 0
   CurrentState: 0
 --- !u!82 &1642213101
 AudioSource:

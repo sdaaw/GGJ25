@@ -49,7 +49,7 @@ public class GameStateHandler : MonoBehaviour
         {
             case GameState.StartScene:
             {
-                _gm.IsPlayerFrozen = false;
+                _gm.IsPlayerFrozen = true;
                 break;
             }
             case GameState.Paused:
@@ -58,11 +58,11 @@ public class GameStateHandler : MonoBehaviour
             }
             case GameState.InPlay:
             {
-                _gm.IsPlayerFrozen = true;
+                _gm.IsPlayerFrozen = false;
                 break;
             }
         }
-        _pausedCanvasParent.SetActive(CurrentState == GameState.Paused);
-        _inPlayPanel.SetActive(CurrentState == GameState.InPlay);
+        //_pausedCanvasParent.SetActive(CurrentState == GameState.Paused);
+        //_inPlayPanel.SetActive(CurrentState == GameState.InPlay);
     }
 }
