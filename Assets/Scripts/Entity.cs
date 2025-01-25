@@ -41,6 +41,8 @@ public class Entity : MonoBehaviour
 
     private bool _dmgCoroutinePlaying = false;
 
+    public float scoreAmount = 0;
+
     protected virtual void Start()
     {
         _renderer = GetComponent<Renderer>();

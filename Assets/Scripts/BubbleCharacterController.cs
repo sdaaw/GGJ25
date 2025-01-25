@@ -179,6 +179,9 @@ public class BubbleCharacterController : Entity
             {
                 if ((entity.CurrentHealth - _tickDamage) <= 0)
                 {
+                    // increase size + hp
+                    CurrentHealth += entity.scoreAmount;
+
                     entitiesInsideCollider.Remove(entity);
                 }
 
