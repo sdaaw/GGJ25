@@ -10,7 +10,8 @@ public class Entity : MonoBehaviour
     {
         None,
         Normal,
-        Boss
+        Boss,
+        Player
     }
 
     public EntityType type;
@@ -22,8 +23,10 @@ public class Entity : MonoBehaviour
         }
         set
         {
+            var change = (_currentHealth - value) * (-1);
+            Debug.Log(change);
             _currentHealth = value;
-            OnHealthChanged();
+            OnHealthChanged(change);
         }
     }
 
@@ -36,6 +39,8 @@ public class Entity : MonoBehaviour
     [SerializeField]
     protected Animator _animator;
 
+    private bool _dmgCoroutinePlaying = false;
+
     protected virtual void Start()
     {
         _renderer = GetComponent<Renderer>();
@@ -46,9 +51,16 @@ public class Entity : MonoBehaviour
     {
     }
 
-    protected void OnHealthChanged()
+    protected virtual void OnHealthChanged(float amount)
     {
-        StartCoroutine(DamageVisual());
+        if (amount < 0)
+        {
+            if(!_dmgCoroutinePlaying)
+            {
+                StartCoroutine(DamageVisual());
+            }
+        }
+
         if (_currentHealth <= 0)
         {
             GameManager.instance.EntitiesInWorld.Remove(gameObject);
@@ -103,10 +115,12 @@ public class Entity : MonoBehaviour
 
     private IEnumerator DamageVisual()
     {
-        if (_renderer == null) yield return null;
+        if (_renderer == null || type == EntityType.Player) yield break;
+        _dmgCoroutinePlaying = true;
 
         _renderer.material.color *= 2;
         yield return new WaitForSeconds(0.2f);
         _renderer.material.color /= 2;
+        _dmgCoroutinePlaying = false;
     }
 }

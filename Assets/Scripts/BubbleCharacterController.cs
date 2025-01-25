@@ -7,7 +7,7 @@ using static UnityEditor.ShaderGraph.Internal.KeywordDependentCollection;
 using static UnityEngine.GraphicsBuffer;
 using System.Collections;
 
-public class BubbleCharacterController : MonoBehaviour
+public class BubbleCharacterController : Entity
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
 
@@ -76,7 +76,19 @@ public class BubbleCharacterController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            TakeDamage(0.1f);
+            /*
+            if (IsInvulnerable) return;
+            if (amount < 0)
+            {
+                IsInvulnerable = true;
+            }  
+            */
+            CurrentHealth -= 0.5f;
+        }
+
+        if(Input.GetKeyDown(KeyCode.T))
+        {
+            CurrentHealth += 0.5f;
         }
 
         if(Input.GetMouseButton(0))
@@ -106,18 +118,31 @@ public class BubbleCharacterController : MonoBehaviour
         //_bubble.HitBubble(transform.InverseTransformPoint(contacts[0].point));
     }
 
-
-    public void TakeDamage(float amount)
+    protected override void OnHealthChanged(float amount)
     {
-        if (IsInvulnerable) return;
-        IsInvulnerable = true;
-        _bubble.BubbleSize -= amount;
-        transform.localScale -= new Vector3(1, 1, 1) * amount;
+        base.OnHealthChanged(amount);
+
+        if (amount > 0)
+        {
+            IncreaseSize(amount);
+        }
+        else
+        {
+            BubleTakeDamage(amount);
+        }
+    }
+
+    protected void BubleTakeDamage(float amount)
+    {
+        _bubble.BubbleSize += amount;
+        transform.localScale += new Vector3(1, 1, 1) * (amount / 10);
         StartCoroutine(DamageVisual());
     }
 
-    public void IncreaseSize()
+    protected void IncreaseSize(float amount)
     {
+        _bubble.BubbleSize += amount;
+        transform.localScale += new Vector3(1, 1, 1) * (amount / 10);
     }
 
     IEnumerator DamageVisual()

@@ -146,6 +146,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 870cd661187fb1948aa6d0e98ee6cb11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  type: 3
+  _currentHealth: 10
+  hasDeathAnim: 0
+  _animator: {fileID: 0}
   _movementSpeed: 10
   _mouseSensitivity: 75
   _cameraFov: 90
@@ -311,6 +315,7 @@ MonoBehaviour:
   ShootMode: 0
   _mousePos: {x: 0, y: 0, z: 0}
   _targetSpherePrefab: {fileID: 2727450202820592903, guid: 1c679a2a87cbca14f8654d18b8f79db6, type: 3}
+  _projectilePrefab: {fileID: 0}
 --- !u!54 &-4127720610600988517
 Rigidbody:
   m_ObjectHideFlags: 0
