@@ -81,10 +81,21 @@ public class BubbleBehaviour : MonoBehaviour
         }
     }
 
+    public void HitBubble(Vector3 pos)
+    {
+        if (pos == Vector3.zero) return;
+        print("Hit: " + pos);
+        _renderer.material.SetVector("_HitPoint", pos);
+    }
+
+    private void Awake()
+    {
+        _renderer = GetComponent<Renderer>();
+
+    }
     void Start()
     {
         BubbleSize = _bubbleStartSize;
-        _renderer = GetComponent<Renderer>();
         _bubbleSpeed = Random.Range(_displacementSpeedMin, _displacementSpeedMax);
         _renderer.material.SetFloat("_DisplacementSpeed", _bubbleSpeed);
         _renderer.material.SetFloat("_DisplacementPower", _displacementPower);

@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: -3511334203360452480}
   - component: {fileID: 6969527922783018606}
   - component: {fileID: 944747237576655912}
+  - component: {fileID: -4127720610600988517}
   m_Layer: 7
   m_Name: Player
   m_TagString: Untagged
@@ -151,6 +152,10 @@ MonoBehaviour:
   _cameraDistance: 10
   _ycameraClampMin: 5
   _ycameraClampMax: 70
+  IsInvulnerable: 0
+  testLayer:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!143 &-3511334203360452480
 CharacterController:
   m_ObjectHideFlags: 0
@@ -302,6 +307,34 @@ MonoBehaviour:
   vertexCount: 32
   lineWidth: 0.2
   curveHeight: 15
+  maxRadius: 20
   ShootMode: 0
   _mousePos: {x: 0, y: 0, z: 0}
   _targetSpherePrefab: {fileID: 2727450202820592903, guid: 1c679a2a87cbca14f8654d18b8f79db6, type: 3}
+--- !u!54 &-4127720610600988517
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3443882638611187576}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 112
+  m_CollisionDetection: 0

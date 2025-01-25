@@ -34,17 +34,25 @@ public class BubbleCharacterController : MonoBehaviour
 
     private Color _originalColor;
 
+    public bool IsInvulnerable;
+
+    public LayerMask testLayer;
+
+    private void Awake()
+    {
+        _bubble = GetComponent<BubbleBehaviour>();
+    }
     void Start()
     {
 
         _camera = Camera.main;
         Cursor.lockState = CursorLockMode.Locked;
         _controller = GetComponent<CharacterController>();
-        _bubble = GetComponent<BubbleBehaviour>();
         //_camera.transform.SetParent(transform, false);
     }
 
-    // Update is called once per frame
+    // Update
+    // is called once per frame
     void Update()
     {
 
@@ -71,12 +79,40 @@ public class BubbleCharacterController : MonoBehaviour
             TakeDamage(0.1f);
         }
 
+        if(Input.GetMouseButton(0))
+        {
+            Ray r = _camera.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+            if(Physics.Raycast(r, out hit, Mathf.Infinity))
+            {
+                Debug.LogWarning(hit.transform.gameObject.name);
+                print(r.origin + " -> " + hit.point);
+                Debug.DrawLine(r.origin, hit.point, Color.red, 20f);
+                if (hit.transform.GetComponent<BubbleBehaviour>() == null) return;
+
+                hit.transform.GetComponent<BubbleBehaviour>().HitBubble(hit.transform.InverseTransformPoint(hit.point));
+            }
+        }
+
         HandleInput();
     }
 
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision == null) return;
+
+        ContactPoint[] contacts = collision.contacts;
+
+        //_bubble.HitBubble(transform.InverseTransformPoint(contacts[0].point));
+    }
+
+
     public void TakeDamage(float amount)
     {
+        if (IsInvulnerable) return;
+        IsInvulnerable = true;
         _bubble.BubbleSize -= amount;
+        transform.localScale -= new Vector3(1, 1, 1) * amount;
         StartCoroutine(DamageVisual());
     }
 
@@ -97,8 +133,8 @@ public class BubbleCharacterController : MonoBehaviour
         _bubble.DisplacementSpeed /= visualIntensity;
         _bubble.OuterGlowWidth += 1;
         _bubble.BubbleColorTint = _originalColor;
+        IsInvulnerable = false;
     }
- 
     void LateUpdate()
     {
         MouseCameraRotation();
