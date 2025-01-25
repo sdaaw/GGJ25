@@ -75,7 +75,7 @@ public class Entity : MonoBehaviour
         {
             StartCoroutine(WaitDeath());
         }
-        else if (GetComponent<FPSController>())
+        else if (GetComponent<BubbleCharacterController>())
         {
             Cursor.lockState = CursorLockMode.None;
             // TODO: player died here

@@ -7,7 +7,7 @@ public class MenuIntro : MonoBehaviour
 {
 
     [SerializeField]
-    private Image _allu, _screenFadeImage, _gameLogo;
+    private Image _allu, _screenFadeImage, _gameLogo, _fgjLogo;
 
     private AudioSource _audioSource;
 
@@ -36,6 +36,7 @@ public class MenuIntro : MonoBehaviour
 
     [SerializeField]
     private int _pointerBallCurvePrecision;
+
 
     [SerializeField]
     private RectTransform[] _curvePoints;
@@ -87,7 +88,8 @@ public class MenuIntro : MonoBehaviour
                 return;
             }
             _fadeScreenAlpha -= _fadeSpeed * Time.deltaTime;
-            _logoText.color = new Color(_logoText.color.r, _logoText.color.g, _logoText.color.g, _fadeScreenAlpha);
+            _logoText.color = new Color(_logoText.color.r, _logoText.color.g, _logoText.color.b, _fadeScreenAlpha);
+            _fgjLogo.color = new Color(_fgjLogo.color.r, _fgjLogo.color.g, _fgjLogo.color.b, _fadeScreenAlpha * _fgjLogo.color.a);
             _screenFadeImage.color = new Color(_screenFadeImage.color.r, _screenFadeImage.color.g, _screenFadeImage.color.b, _fadeScreenAlpha);
         } else
         {
