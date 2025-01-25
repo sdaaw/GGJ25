@@ -40,7 +40,7 @@ public class EnemyController : MonoBehaviour
     {
         var e = Instantiate(enemy, wave.waveSpawnPositions[Random.Range(0, wave.waveSpawnPositions.Count)].position, Quaternion.identity);
         // e.CurrentHealth = e.CurrentHealth + (100 / GameManager.instance.MoneyReward);
-        e.SetTarget(FindFirstObjectByType<FPSController>().transform);
+        e.SetTarget(FindFirstObjectByType<BubbleCharacterController>().transform);
         wave.currentWaveEnemies.Add(e);
     }
 

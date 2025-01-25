@@ -15,7 +15,6 @@ public class GameManager : MonoBehaviour
 
     public Transform SpawnPoint;
 
-
     public List<GameObject> EntitiesInWorld = new List<GameObject>();
     void Start()
     {

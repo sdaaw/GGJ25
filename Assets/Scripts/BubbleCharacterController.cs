@@ -126,8 +126,6 @@ public class BubbleCharacterController : MonoBehaviour
         Vector3 movement = _camera.transform.right * x + _camera.transform.forward * y;
         movement.y = 0f;
 
-
-
         _controller.Move(movement);
 
         if (movement.magnitude != 0f)
