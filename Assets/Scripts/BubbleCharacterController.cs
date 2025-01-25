@@ -104,9 +104,9 @@ public class BubbleCharacterController : Entity
             RaycastHit hit;
             if(Physics.Raycast(r, out hit, Mathf.Infinity))
             {
-                Debug.LogWarning(hit.transform.gameObject.name);
-                print(r.origin + " -> " + hit.point);
-                Debug.DrawLine(r.origin, hit.point, Color.red, 20f);
+                // Debug.LogWarning(hit.transform.gameObject.name);
+                // print(r.origin + " -> " + hit.point);
+                // Debug.DrawLine(r.origin, hit.point, Color.red, 20f);
                 if (hit.transform.GetComponent<BubbleBehaviour>() == null) return;
 
                 hit.transform.GetComponent<BubbleBehaviour>().HitBubble(hit.transform.InverseTransformPoint(hit.point));
