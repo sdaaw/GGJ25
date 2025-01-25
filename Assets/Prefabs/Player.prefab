@@ -150,7 +150,7 @@ MonoBehaviour:
   _currentHealth: 10
   hasDeathAnim: 0
   _animator: {fileID: 0}
-  _movementSpeed: 10
+  _movementSpeed: 30
   _mouseSensitivity: 75
   _cameraFov: 90
   _cameraDistance: 10
