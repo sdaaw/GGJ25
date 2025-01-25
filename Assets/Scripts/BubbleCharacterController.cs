@@ -182,7 +182,10 @@ public class BubbleCharacterController : Entity
             {
                 if (entity.entityConsumeThreshold <= CurrentHealth)
                 {
-                    if ((entity.CurrentHealth - _tickDamage) <= 0)
+                    var tickDmg = _tickDamage + (CurrentHealth / 100 * 2);
+
+
+                    if ((entity.CurrentHealth - tickDmg) <= 0)
                     {
                         // increase size + hp
                         CurrentHealth += entity.scoreAmount;
@@ -190,7 +193,7 @@ public class BubbleCharacterController : Entity
                         entitiesInsideCollider.Remove(entity);
                     }
 
-                    entity.CurrentHealth -= _tickDamage;
+                    entity.CurrentHealth -= tickDmg;
                 }
             }
         }
