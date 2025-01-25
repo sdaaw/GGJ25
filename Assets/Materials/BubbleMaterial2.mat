@@ -61,6 +61,10 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _FaceTexture:
+        m_Texture: {fileID: 2800000, guid: c7698378e7d87e2418924ba4fb053edc, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _MainTex:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -117,14 +121,15 @@ Material:
     - _DstBlendAlpha: 0
     - _EnvironmentReflections: 1
     - _FaceHeight: 1
+    - _FaceOffset: 0.5
     - _FaceWidth: 1
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
     - _Metallic: 0
     - _OcclusionStrength: 1
-    - _OuterGlow: 2
-    - _OuterGlowAnimSpeed: 3
+    - _OuterGlow: 0.92
+    - _OuterGlowAnimSpeed: 2.85
     - _Parallax: 0.005
     - _QueueControl: 0
     - _QueueOffset: 0
@@ -144,6 +149,7 @@ Material:
     - _BubbleColorTint: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _FaceScale: {r: 3, g: 3, b: 0, a: 0}
     - _HitPoint: {r: 0, g: 0, b: 0, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
     - _materialscale: {r: 0.05, g: 0.05, b: 0, a: 0}

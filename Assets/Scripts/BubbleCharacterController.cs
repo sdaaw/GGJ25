@@ -51,6 +51,7 @@ public class BubbleCharacterController : Entity
         Cursor.lockState = CursorLockMode.Locked;
         _controller = GetComponent<CharacterController>();
         //_camera.transform.SetParent(transform, false);
+
     }
 
     // Update
@@ -58,7 +59,9 @@ public class BubbleCharacterController : Entity
     void Update()
     {
 
-        //if(isGameActive) return;
+        if(GameManager.instance.IsPlayerFrozen || 
+           GameManager.instance.GameStateHandler.CurrentState == GameStateHandler.GameState.Paused) return;
+
         if(Input.GetKeyDown(KeyCode.Q))
         {
             _bubble.DisplacementPower -= 0.1f;

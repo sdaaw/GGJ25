@@ -2,6 +2,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEditor;
+using System;
 public class MenuSelectable : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -23,6 +24,10 @@ public class MenuSelectable : MonoBehaviour
     private Vector2 _originalTextPosition, _originalMirroredTextPosition;
 
     private float xsway, ysway, xtime, ytime;
+
+    public Action menuElementFunction;
+
+    public MenuControls.MenuState MenuState;
 
     private void Awake()
     {
