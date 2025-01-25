@@ -37,13 +37,17 @@ public class BubbleCharacterController : MonoBehaviour
     public bool IsInvulnerable;
 
     public LayerMask testLayer;
+
+    private void Awake()
+    {
+        _bubble = GetComponent<BubbleBehaviour>();
+    }
     void Start()
     {
 
         _camera = Camera.main;
         Cursor.lockState = CursorLockMode.Locked;
         _controller = GetComponent<CharacterController>();
-        _bubble = GetComponent<BubbleBehaviour>();
         //_camera.transform.SetParent(transform, false);
     }
 
@@ -77,11 +81,11 @@ public class BubbleCharacterController : MonoBehaviour
 
         if(Input.GetMouseButton(0))
         {
-            Ray r = Camera.main.ScreenPointToRay(Input.mousePosition);
+            Ray r = _camera.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
             if(Physics.Raycast(r, out hit, Mathf.Infinity))
             {
-                print(hit.transform.gameObject.name);
+                Debug.LogWarning(hit.transform.gameObject.name);
                 print(r.origin + " -> " + hit.point);
                 Debug.DrawLine(r.origin, hit.point, Color.red, 20f);
                 if (hit.transform.GetComponent<BubbleBehaviour>() == null) return;
@@ -92,6 +96,16 @@ public class BubbleCharacterController : MonoBehaviour
 
         HandleInput();
     }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision == null) return;
+
+        ContactPoint[] contacts = collision.contacts;
+
+        //_bubble.HitBubble(transform.InverseTransformPoint(contacts[0].point));
+    }
+
 
     public void TakeDamage(float amount)
     {
