@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class Entity : MonoBehaviour
 {
-
-
     public enum EntityType
     {
         None,
@@ -42,6 +40,8 @@ public class Entity : MonoBehaviour
     private bool _dmgCoroutinePlaying = false;
 
     public float scoreAmount = 0;
+
+    public float entityConsumeThreshold = 0;
 
     protected virtual void Start()
     {

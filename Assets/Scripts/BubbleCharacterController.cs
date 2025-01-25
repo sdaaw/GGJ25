@@ -23,6 +23,9 @@ public class BubbleCharacterController : Entity
     [SerializeField]
     private float _cameraDistance;
 
+    [SerializeField]
+    private float _cameraDistanceMax = 50;
+
     private Camera _camera;
 
     private float mousey, mousex;
@@ -181,15 +184,21 @@ public class BubbleCharacterController : Entity
             var entity = entitiesInsideCollider[i];
             if (entity.type != EntityType.Player)
             {
-                if ((entity.CurrentHealth - _tickDamage) <= 0)
+                if (entity.entityConsumeThreshold <= CurrentHealth)
                 {
-                    // increase size + hp
-                    CurrentHealth += entity.scoreAmount;
+                    var tickDmg = _tickDamage + (CurrentHealth / 100 * 2);
 
-                    entitiesInsideCollider.Remove(entity);
+
+                    if ((entity.CurrentHealth - tickDmg) <= 0)
+                    {
+                        // increase size + hp
+                        CurrentHealth += entity.scoreAmount;
+
+                        entitiesInsideCollider.Remove(entity);
+                    }
+
+                    entity.CurrentHealth -= tickDmg;
                 }
-
-                entity.CurrentHealth -= _tickDamage;
             }
         }
     }
@@ -220,6 +229,7 @@ public class BubbleCharacterController : Entity
     {
         _bubble.BubbleSize += amount;
         transform.localScale += new Vector3(1, 1, 1) * (amount / 10);
+        // _cameraDistance += amount;
     }
 
     IEnumerator DamageVisual()
@@ -250,7 +260,7 @@ public class BubbleCharacterController : Entity
 
         mousey = Mathf.Clamp(mousey, _ycameraClampMin, _ycameraClampMax);
 
-        Vector3 dir = new Vector3(0, 0, -_cameraDistance);
+        Vector3 dir = new Vector3(0, 0, -Mathf.Clamp(CurrentHealth, 5, _cameraDistanceMax));
         Quaternion rotation = Quaternion.Euler(mousey, mousex, 0);
         _camera.transform.position = transform.position + rotation * dir;
         _camera.transform.LookAt(transform.position);
