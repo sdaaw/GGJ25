@@ -1,5 +1,8 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using static UnityEditor.PlayerSettings;
+using UnityEngine.Device;
 
 public class DrawLineRenderer : MonoBehaviour
 {
@@ -26,6 +29,10 @@ public class DrawLineRenderer : MonoBehaviour
     private List<Vector3> pointList = new List<Vector3>();
 
     private BubbleCharacterController _player;
+    private Vector3 _targetSphereStartScale;
+
+    [SerializeField]
+    private RenderTexture _renderTexture;
 
     private void Awake()
     {
@@ -35,6 +42,7 @@ public class DrawLineRenderer : MonoBehaviour
             _targetSphere = GameObject.Instantiate(_targetSpherePrefab, transform.position, Quaternion.identity);
         }
         _player = GetComponent<BubbleCharacterController>();
+        _targetSphereStartScale = _targetSphere.transform.localScale;
     }
 
     private void Start()
@@ -51,6 +59,8 @@ public class DrawLineRenderer : MonoBehaviour
         {
             _targetSphere.SetActive(false);
         }
+
+        _renderTexture = Camera.main.targetTexture;
     }
 
     private void Update()
@@ -65,6 +75,9 @@ public class DrawLineRenderer : MonoBehaviour
                 if (_targetSphere != null)
                 {
                     _targetSphere.SetActive(true);
+                    lineRenderer.startWidth = lineWidth + (_player.CurrentHealth / 150);
+                    lineRenderer.endWidth = lineWidth + (_player.CurrentHealth / 150);
+                    _targetSphere.transform.localScale = _targetSphereStartScale * _player.CurrentHealth / 10 * 1.25f;
                     // TODO: disable movement?
                 }
             } 
@@ -79,15 +92,23 @@ public class DrawLineRenderer : MonoBehaviour
             }
         }
 
-        var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        var mousePos = Input.mousePosition;
+
+        if (_renderTexture != null)
+        {
+            // Divide by screen size and multiply by render texture size
+            mousePos = mousePos / new Vector2(UnityEngine.Screen.width, UnityEngine.Screen.height) * new Vector2(_renderTexture.width, _renderTexture.height);
+        }
+
+        var ray = Camera.main.ScreenPointToRay(mousePos);
 
         var hit = new RaycastHit();
 
-        if (Physics.Raycast(ray, out hit, 100, ~IgnoreLayer))
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity, ~IgnoreLayer))
         {
             _mousePos = hit.point;
         }
-
+        // + (_player.CurrentHealth / 10 * 2)
         // clamp mouseposition to max radius
         var difference = _mousePos - transform.position;
         var direction = difference.normalized;
@@ -115,7 +136,7 @@ public class DrawLineRenderer : MonoBehaviour
             // Debug.Log(endPosition);
             // TODO: hold to fire bigger ammo at cost of more mass
             var player = GetComponent<BubbleCharacterController>();
-            player.CurrentHealth -= projectileCost;
+            player.CurrentHealth -= projectileCost + (player.CurrentHealth / 25);
 
             var projectile = GameObject.Instantiate(_projectilePrefab, transform.position, Quaternion.identity);
             var p = projectile.GetComponent<Projectile>();
@@ -127,6 +148,7 @@ public class DrawLineRenderer : MonoBehaviour
                 p.velocity = 15;
                 p.dmg = projectileCost + (player.CurrentHealth / 10) * 2;
                 p.owner = transform;
+                p.transform.localScale *= (player.CurrentHealth / 10) * 1.25f;
             }
 
             ShootMode = false;
