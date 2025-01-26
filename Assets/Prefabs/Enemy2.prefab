@@ -273,7 +273,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 1
   _currentHealth: 5
-  hasDeathAnim: 0
+  hasDeathAnim: 1
   _animator: {fileID: 0}
   scoreAmount: 5
   entityConsumeThreshold: 20
@@ -285,7 +285,7 @@ MonoBehaviour:
     waveSpawnOwner: {fileID: 0}
     timer: 0
     respawnTimer: 120
-  _deathDebris: {fileID: 0}
+  _deathDebris: {fileID: 6044649376363412716, guid: a55cb5de4f3b21443b01000d05d5b369, type: 3}
   IsDead: 0
   target: {fileID: 0}
   _targetPosition: {x: 0, y: 0, z: 0}
@@ -299,7 +299,7 @@ MonoBehaviour:
   _bulletVelocity: 100
   _damage: 1.25
   _shootTimerMax: 2
-  _shootSound: 
+  _shootSound: EnemyShoot
   Agent: {fileID: 0}
 --- !u!1001 &2581179441977035236
 PrefabInstance:

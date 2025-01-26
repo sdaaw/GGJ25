@@ -72,7 +72,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 1
   _currentHealth: 15
-  hasDeathAnim: 0
+  hasDeathAnim: 1
   _animator: {fileID: 0}
   scoreAmount: 15
   entityConsumeThreshold: 25
@@ -84,7 +84,7 @@ MonoBehaviour:
     waveSpawnOwner: {fileID: 0}
     timer: 0
     respawnTimer: 120
-  _deathDebris: {fileID: 0}
+  _deathDebris: {fileID: 6044649376363412716, guid: a55cb5de4f3b21443b01000d05d5b369, type: 3}
   IsDead: 0
   target: {fileID: 0}
   _targetPosition: {x: 0, y: 0, z: 0}
@@ -98,7 +98,7 @@ MonoBehaviour:
   _bulletVelocity: 75
   _damage: 4
   _shootTimerMax: 3
-  _shootSound: 
+  _shootSound: TankShoot
   Agent: {fileID: 0}
 --- !u!65 &799087777343286048
 BoxCollider:
