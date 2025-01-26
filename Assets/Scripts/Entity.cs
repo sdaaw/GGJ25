@@ -43,6 +43,8 @@ public class Entity : MonoBehaviour
 
     public float entityConsumeThreshold = 0;
 
+    public EnemyWave waveOwner = null;
+
     protected virtual void Start()
     {
         _renderer = GetComponent<Renderer>();
@@ -84,9 +86,9 @@ public class Entity : MonoBehaviour
         var econ = FindFirstObjectByType<EnemyController>();
         var enemy = this.GetComponent<Enemy>();
 
-        if (econ.currentWave.currentWaveEnemies.Contains(enemy))
+        if (waveOwner != null && waveOwner.currentWaveEnemies.Contains(enemy))
         {
-            econ.currentWave.currentWaveEnemies.Remove(enemy);
+            waveOwner.currentWaveEnemies.Remove(enemy);
         }
 
         if (hasDeathAnim)

@@ -6,27 +6,38 @@ using TMPro;
 public class EnemyController : MonoBehaviour
 {
     public List<EnemyWave> enemyWaves = new List<EnemyWave>();
-    public EnemyWave currentWave;
     public int nextWaveIndex = 0;
+    public float townAgroRange = 100;
 
     [SerializeField]
     private TMP_Text _enemyRemainingText;
 
+    private BubbleCharacterController _player;
+    private void Start()
+    {
+        _player = FindFirstObjectByType<BubbleCharacterController>();
+    }
+
     public void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            // TODO: needs last wave logic
-            SpawnWave(enemyWaves[nextWaveIndex]);
-            currentWave = enemyWaves[nextWaveIndex];
-            nextWaveIndex++;
-        }
+        CheckPlayerRangeToTown();
+    }
 
-        if (_enemyRemainingText != null && currentWave != null)
+    public void CheckPlayerRangeToTown()
+    {
+        foreach (EnemyWave wave in enemyWaves)
         {
-            _enemyRemainingText.text = $"Enemies: {currentWave.enemiesRemaining}";
+            if (Vector3.Distance(wave.waveSpawnOwner.transform.position, _player.transform.position) <= townAgroRange)
+            {
+                if (wave.enemiesRemaining <= 0)
+                {
+                    SpawnWave(wave);
+                }  
+            }
         }
     }
+
+
 
     public void SpawnWave(EnemyWave ew)
     {
@@ -41,16 +52,17 @@ public class EnemyController : MonoBehaviour
         var e = Instantiate(enemy, wave.waveSpawnPositions[Random.Range(0, wave.waveSpawnPositions.Count)].position, Quaternion.identity);
         // e.CurrentHealth = e.CurrentHealth + (100 / GameManager.instance.MoneyReward);
         e.SetTarget(FindFirstObjectByType<BubbleCharacterController>().transform);
+        e.waveOwner = wave; 
         wave.currentWaveEnemies.Add(e);
     }
 
-    public void DespawnWave()
+    public void DespawnWave(EnemyWave wave)
     {
-        if (currentWave != null && currentWave.currentWaveEnemies.Count > 0)
+        if (wave != null && wave.currentWaveEnemies.Count > 0)
         {
-            for (int i = currentWave.currentWaveEnemies.Count - 1; i == 0; i--)
+            for (int i = wave.currentWaveEnemies.Count - 1; i == 0; i--)
             {
-                Destroy(currentWave.currentWaveEnemies[i].gameObject);
+                Destroy(wave.currentWaveEnemies[i].gameObject);
             }
         }
     }
@@ -63,6 +75,8 @@ public class EnemyWave
     public List<Enemy> waveEnemies = new List<Enemy>();
     public List<Transform> waveSpawnPositions = new List<Transform>();
     public List<Enemy> currentWaveEnemies = new List<Enemy>();
+
+    public GameObject waveSpawnOwner;
     public int enemiesRemaining
     {
         get { return currentWaveEnemies.Count; }
