@@ -26,7 +26,7 @@ public class Enemy : Entity
 
     private Slider healthBar;
 
-    private BubbleCharacterController _player;
+    protected BubbleCharacterController _player;
 
     [SerializeField]
     private float _healthBarRange = 30;
@@ -36,6 +36,8 @@ public class Enemy : Entity
     private float _maxHealth;
 
     private Color _barStartColor;
+
+    public float agroRange = 75f;
 
     protected virtual void Awake()
     {
@@ -55,7 +57,7 @@ public class Enemy : Entity
         if (_isEnabled)
         {
             if (target == null) return;
-            if (chaseTarget)
+            if (chaseTarget && Vector3.Distance(_player.transform.position, transform.position) <= agroRange)
             {
                 _agent.SetDestination(target.position);
             }
