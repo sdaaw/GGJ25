@@ -136,7 +136,7 @@ public class DrawLineRenderer : MonoBehaviour
             // Debug.Log(endPosition);
             // TODO: hold to fire bigger ammo at cost of more mass
             var player = GetComponent<BubbleCharacterController>();
-            player.CurrentHealth -= projectileCost;
+            player.CurrentHealth -= projectileCost + (player.CurrentHealth / 25);
 
             var projectile = GameObject.Instantiate(_projectilePrefab, transform.position, Quaternion.identity);
             var p = projectile.GetComponent<Projectile>();
