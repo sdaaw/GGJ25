@@ -2,7 +2,7 @@ using System.Linq;
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-using TMPro;
+using UnityEngine.UIElements;
 
 
 public class BubbleCharacterController : Entity
@@ -66,7 +66,7 @@ public class BubbleCharacterController : Entity
     {
 
         _camera = Camera.main;
-        Cursor.lockState = CursorLockMode.Locked;
+        UnityEngine.Cursor.lockState = CursorLockMode.Locked;
         _controller = GetComponent<CharacterController>();
         //_camera.transform.SetParent(transform, false);
 
@@ -198,6 +198,7 @@ public class BubbleCharacterController : Entity
         
         if (amount > 0)
         {
+            SoundManager.PlayASource("Eating");
             if (CurrentHealth <= 750)
             {
                 IncreaseSize(amount);
@@ -264,6 +265,11 @@ public class BubbleCharacterController : Entity
         _camera.transform.LookAt(transform.position);
     }
 
+    private bool walkSoundPlaying = false;
+
+    [SerializeField]
+    private AudioSource _walkSound;
+
     private void HandleInput()
     {
         _groundDistance = transform.localScale.x;
@@ -287,16 +293,31 @@ public class BubbleCharacterController : Entity
             _bubble.IsMoving = true;
             transform.Rotate(Vector3.up * Input.GetAxis("Mouse X") * _mouseSensitivity * Time.deltaTime);
 
-
             Quaternion CamRotation = _camera.transform.rotation;
             CamRotation.x = 0f;
             CamRotation.z = 0f;
 
             transform.rotation = Quaternion.Lerp(transform.rotation, CamRotation, 0.1f);
 
-        } else
+        } 
+        else
         {
             _bubble.IsMoving = false;
+            
+        }
+        // Debug.Log(_movement.magnitude);
+        if (_movement.magnitude > 4)
+        {
+            if (!_walkSound.isPlaying)
+            {
+                _walkSound.Play();
+                walkSoundPlaying = true;
+            }
+        }
+        else if (walkSoundPlaying && _movement.magnitude <= 4)
+        {
+            _walkSound.Stop();
+            walkSoundPlaying = false;
         }
     }
 }
