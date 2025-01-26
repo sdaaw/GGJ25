@@ -217,17 +217,22 @@ public class BubbleCharacterController : Entity
         base.OnHealthChanged(amount);
 
         GameManager.instance.HealthValueText.text = CurrentHealth.ToString();
+
+        if(CurrentHealth < 5f)
+        {
+            GameManager.instance.ChatBoxController.RandomLowHealthWarning();
+        }
         if (amount > 0)
         {
             IncreaseSize(amount);
         }
         else
         {
-            BubleTakeDamage(amount);  
+            BubbleTakeDamage(amount);  
         }
     }
 
-    protected void BubleTakeDamage(float amount)
+    protected void BubbleTakeDamage(float amount)
     {
         _bubble.BubbleSize += amount;
         transform.localScale += new Vector3(1, 1, 1) * (amount / 10);

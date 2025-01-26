@@ -31,12 +31,15 @@ public class GameManager : MonoBehaviour
 
     public GameStateHandler StateHandler;
 
+    public UIChatBoxController ChatBoxController;
+
     public bool IsPlayerFrozen;
 
     private float _whiteFadeAlpha;
 
     void Start()
     {
+        ChatBoxController = GetComponent<UIChatBoxController>();
         StateHandler = GetComponent<GameStateHandler>();
         if (instance == null) { instance = this; }
         player = Instantiate(_playerPrefab, SpawnPoint.position, Quaternion.identity);
