@@ -34,12 +34,18 @@ public class EnemyController : MonoBehaviour
     {
         foreach (EnemyWave wave in enemyWaves)
         {
+            if(wave.timer > 0)
+            {
+                wave.timer -= Time.deltaTime;
+            }
+
             if (Vector3.Distance(wave.waveSpawnOwner.transform.position, _player.transform.position) <= townAgroRange)
             {
-                if (wave.enemiesRemaining <= 0)
+                if (wave.enemiesRemaining <= 0 && wave.timer <= 0)
                 {
                     SpawnWave(wave);
-                }  
+                    wave.timer = wave.respawnTimer;
+                }
             }
         }
     }
@@ -84,6 +90,10 @@ public class EnemyWave
     public List<Enemy> currentWaveEnemies = new List<Enemy>();
 
     public GameObject waveSpawnOwner;
+
+    public float timer;
+    public float respawnTimer = 120;
+
     public int enemiesRemaining
     {
         get { return currentWaveEnemies.Count; }

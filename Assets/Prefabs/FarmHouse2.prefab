@@ -121,7 +121,7 @@ MonoBehaviour:
   _currentHealth: 25
   hasDeathAnim: 0
   _animator: {fileID: 0}
-  scoreAmount: 15
+  scoreAmount: 5
   entityConsumeThreshold: 30
   waveOwner:
     enemyAmount: 0

@@ -53,7 +53,7 @@ public class ShootingEnemy : Enemy
 
             // var angle = Vector3.Angle(transform.TransformDirection(a), 
             //    Camera.main.transform.TransformDirection(Vector3.forward));
-            Debug.Log(Vector3.Dot(transform.position, Camera.main.transform.position));
+            // Debug.Log(Vector3.Dot(transform.position, Camera.main.transform.position));
             if (Vector3.Dot(transform.right, Camera.main.transform.position) > 0)
             {
                 _animator.SetBool("PlaySideAnim", true);

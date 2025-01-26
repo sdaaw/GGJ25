@@ -166,7 +166,7 @@ MonoBehaviour:
   _mouseSensitivity: 75
   _cameraFov: 90
   _cameraDistance: 10
-  _cameraDistanceMax: 150
+  _cameraDistanceMax: 500
   _ycameraClampMin: 5
   _ycameraClampMax: 70
   IsInvulnerable: 0
@@ -342,7 +342,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3443882638611187576}
   serializedVersion: 4
-  m_Mass: 1
+  m_Mass: 10
   m_Drag: 0
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}

@@ -46,6 +46,9 @@ public class BubbleCharacterController : Entity
     [SerializeField]
     private Animator _faceAnimator;
 
+    private float _takeDmgAnimTimer;
+    private float _takeDmgAnimTimerMax = 2;
+
     private void Awake()
     {
         _bubble = GetComponent<BubbleBehaviour>();
@@ -67,7 +70,12 @@ public class BubbleCharacterController : Entity
         if(GameManager.instance != null && (GameManager.instance.IsPlayerFrozen || 
            GameManager.instance.StateHandler.CurrentState == GameStateHandler.GameState.Paused)) return;
 
-        if(Input.GetKeyDown(KeyCode.Q))
+        if (_takeDmgAnimTimer >= 0)
+        {
+            _takeDmgAnimTimer -= Time.deltaTime;
+        }
+
+        if (Input.GetKeyDown(KeyCode.Q))
         {
             _bubble.DisplacementPower -= 0.1f;
         }
@@ -214,7 +222,7 @@ public class BubbleCharacterController : Entity
         }
         else
         {
-            BubleTakeDamage(amount);
+            BubleTakeDamage(amount);  
         }
     }
 
@@ -222,7 +230,12 @@ public class BubbleCharacterController : Entity
     {
         _bubble.BubbleSize += amount;
         transform.localScale += new Vector3(1, 1, 1) * (amount / 10);
-        StartCoroutine(DamageVisual());
+
+        if (_takeDmgAnimTimer <= 0)
+        {
+            _takeDmgAnimTimer = _takeDmgAnimTimerMax;
+            StartCoroutine(DamageVisual());   
+        } 
     }
 
     protected void IncreaseSize(float amount)
