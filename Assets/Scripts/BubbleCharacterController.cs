@@ -185,6 +185,8 @@ public class BubbleCharacterController : Entity
     {
         base.OnHealthChanged(amount);
 
+
+        if (IsDead) return;
         GameManager.instance.HealthValueText.text = CurrentHealth.ToString();
 
         if(CurrentHealth < 5f)

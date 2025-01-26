@@ -165,6 +165,8 @@ MonoBehaviour:
     waveSpawnOwner: {fileID: 0}
     timer: 0
     respawnTimer: 120
+  _deathDebris: {fileID: 0}
+  IsDead: 0
   _movementSpeed: 30
   _mouseSensitivity: 75
   _cameraFov: 90
@@ -437,13 +439,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9193875171882543304}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.856}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0.91}
   m_LocalScale: {x: 0.060476262, y: 0.060476262, z: 0.060476262}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1103173672366093893}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!212 &3196960347202264788
 SpriteRenderer:
   m_ObjectHideFlags: 0
