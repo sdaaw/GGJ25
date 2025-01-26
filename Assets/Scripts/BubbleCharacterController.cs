@@ -1,13 +1,9 @@
 using System.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
-using static UnityEditor.SceneView;
-using UnityEngine.InputSystem.XR;
-using static UnityEditor.ShaderGraph.Internal.KeywordDependentCollection;
-using static UnityEngine.GraphicsBuffer;
 using System.Collections;
 using System.Collections.Generic;
-using static UnityEngine.EventSystems.EventTrigger;
+using TMPro;
+
 
 public class BubbleCharacterController : Entity
 {
@@ -110,21 +106,6 @@ public class BubbleCharacterController : Entity
             CurrentHealth += 0.5f;
         }
 
-        if(Input.GetMouseButton(0))
-        {
-            Ray r = _camera.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
-            if(Physics.Raycast(r, out hit, Mathf.Infinity))
-            {
-                // Debug.LogWarning(hit.transform.gameObject.name);
-                // print(r.origin + " -> " + hit.point);
-                // Debug.DrawLine(r.origin, hit.point, Color.red, 20f);
-                if (hit.transform.GetComponent<BubbleBehaviour>() == null) return;
-
-                hit.transform.GetComponent<BubbleBehaviour>().HitBubble(hit.transform.InverseTransformPoint(hit.point));
-            }
-        }
-
         HandleInput();
         HandleDamageCollider();
     }
@@ -173,6 +154,7 @@ public class BubbleCharacterController : Entity
 
     protected void HandleDamageCollider()
     {
+
         if (_timer > 0)
         {
             _timer -= Time.deltaTime;
@@ -212,10 +194,12 @@ public class BubbleCharacterController : Entity
     }
 
 
+
     protected override void OnHealthChanged(float amount)
     {
         base.OnHealthChanged(amount);
 
+        GameManager.instance.HealthValueText.text = CurrentHealth.ToString();
         if (amount > 0)
         {
             IncreaseSize(amount);

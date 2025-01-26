@@ -10,6 +10,8 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private GameObject _playerPrefab;
 
+    public TMP_Text HealthValueText;
+
     [HideInInspector]
     public GameObject player;
 
