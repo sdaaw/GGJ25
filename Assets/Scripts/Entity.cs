@@ -46,7 +46,7 @@ public class Entity : MonoBehaviour
     protected virtual void Start()
     {
         _renderer = GetComponent<Renderer>();
-        _animator = GetComponent<Animator>();
+        _animator = GetComponentInChildren<Animator>();
     }
 
     void Update()
