@@ -58,12 +58,18 @@ public class Enemy : Entity
         {
             if (chaseTarget && Vector3.Distance(_player.transform.position, transform.position) <= agroRange)
             {
-                _agent.SetDestination(target.position);
+                if (_agent.isOnNavMesh)
+                {
+                    _agent.SetDestination(target.position);
+                }
             }
             else
             {
                 MoveAround();
-                _agent.SetDestination(_targetPosition);
+                if (_agent.isOnNavMesh)
+                {
+                    _agent.SetDestination(_targetPosition);
+                }   
             }
 
             if (target == null) return;
