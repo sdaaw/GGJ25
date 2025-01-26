@@ -85,7 +85,7 @@ public class GameManager : MonoBehaviour
 
     IEnumerator IntroTextVisual()
     {
-        string[] script = new string[] { "I've been having these weird thoughts lately..", "like is any of this real or not ?" };
+        string[] script = new string[] { "Bubble must consume ...", " Consume enemies and buildings to grow" };
         for (int i = 0; i < script[0].Length; i++)
         {
             _gameIntroText.text += script[0][i];
