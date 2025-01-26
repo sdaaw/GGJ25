@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 7752986818308582891}
   - component: {fileID: 7870269766004362133}
   - component: {fileID: 8340147007220359914}
+  - component: {fileID: -5278934329412591166}
+  - component: {fileID: 5807052668418070347}
   m_Layer: 0
   m_Name: Cow
   m_TagString: Untagged
@@ -110,3 +112,48 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!65 &-5278934329412591166
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8729709899862910256}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 10, y: 10, z: 0.2}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &5807052668418070347
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8729709899862910256}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3315fe05b04d1114ab965e531b176b6c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 0
+  _currentHealth: 1
+  hasDeathAnim: 0
+  _animator: {fileID: 0}
+  scoreAmount: 2
+  entityConsumeThreshold: 0
+  waveOwner:
+    enemyAmount: 0
+    waveEnemies: []
+    waveSpawnPositions: []
+    currentWaveEnemies: []
+    waveSpawnOwner: {fileID: 0}

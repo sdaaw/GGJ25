@@ -107,12 +107,12 @@ public class DrawLineRenderer : MonoBehaviour
         _targetSphere.transform.position = endPosition;
 
 
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && ShootMode)
         {
             // Debug.Log(endPosition);
             // TODO: hold to fire bigger ammo at cost of more mass
-
-            GetComponent<BubbleCharacterController>().CurrentHealth -= projectileCost;
+            var player = GetComponent<BubbleCharacterController>();
+            player.CurrentHealth -= projectileCost;
 
             var projectile = GameObject.Instantiate(_projectilePrefab, transform.position, Quaternion.identity);
             var p = projectile.GetComponent<Projectile>();
@@ -122,7 +122,7 @@ public class DrawLineRenderer : MonoBehaviour
                 p.finalPosition = endPosition;
                 p.curveHeight = curveHeight;
                 p.velocity = 15;
-                p.dmg = projectileCost;
+                p.dmg = projectileCost + (player.CurrentHealth / 10) * 2;
                 p.owner = transform;
             }
 

@@ -133,8 +133,10 @@ MonoBehaviour:
   _outerGlowWidth: 2
   BubbleSize: 0
   _bubbleStartSize: 2
+  _bubbleStartDisplacementPower: 0
   _colorTint: {r: 1, g: 1, b: 1, a: 1}
   damagedColorTint: {r: 0.4716981, g: 0, b: 0, a: 1}
+  IsMoving: 0
   _faceMaterialFrames: []
 --- !u!114 &383411004486881869
 MonoBehaviour:
@@ -153,10 +155,18 @@ MonoBehaviour:
   hasDeathAnim: 0
   _animator: {fileID: 0}
   scoreAmount: 0
+  entityConsumeThreshold: 0
+  waveOwner:
+    enemyAmount: 0
+    waveEnemies: []
+    waveSpawnPositions: []
+    currentWaveEnemies: []
+    waveSpawnOwner: {fileID: 0}
   _movementSpeed: 30
   _mouseSensitivity: 75
   _cameraFov: 90
   _cameraDistance: 10
+  _cameraDistanceMax: 50
   _ycameraClampMin: 5
   _ycameraClampMax: 70
   IsInvulnerable: 0
@@ -320,9 +330,10 @@ MonoBehaviour:
   curveHeight: 15
   maxRadius: 20
   ShootMode: 0
+  projectileCost: 1
   _mousePos: {x: 0, y: 0, z: 0}
   _targetSpherePrefab: {fileID: 2727450202820592903, guid: 1c679a2a87cbca14f8654d18b8f79db6, type: 3}
-  _projectilePrefab: {fileID: 0}
+  _projectilePrefab: {fileID: 6824460163936597999, guid: de4a9c042a0349c4e94fe6eed9293e7a, type: 3}
 --- !u!54 &-4127720610600988517
 Rigidbody:
   m_ObjectHideFlags: 0
