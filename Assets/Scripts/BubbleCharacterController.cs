@@ -57,6 +57,8 @@ public class BubbleCharacterController : Entity
         _controller = GetComponent<CharacterController>();
         //_camera.transform.SetParent(transform, false);
 
+        GameManager.instance.HealthValueText.text = CurrentHealth.ToString();
+
     }
 
     // Update
