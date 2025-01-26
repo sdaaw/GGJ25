@@ -133,12 +133,6 @@ public class Entity : MonoBehaviour
         }
         else
         {
-            if (_isFinalTownBuilding && FindFirstObjectByType<TownResources>())
-            {
-                var town = FindFirstObjectByType<TownResources>();
-                town.townBuildings.Remove(this.gameObject);
-            }
-
             Destroy(gameObject);
         }
     }
@@ -159,6 +153,13 @@ public class Entity : MonoBehaviour
             a.GetComponent<DeathDebrisBehaviour>().GeneratePoints();
             yield return new WaitForSeconds(0.05f);
         }
+
+        if (_isFinalTownBuilding && FindFirstObjectByType<TownResources>())
+        {
+            var town = FindFirstObjectByType<TownResources>();
+            town.townBuildings.Remove(this.gameObject);
+        }
+
         Destroy(gameObject);
     }
 
