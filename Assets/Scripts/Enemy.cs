@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
-using static UnityEngine.EventSystems.EventTrigger;
 
 public class Enemy : Entity
 {

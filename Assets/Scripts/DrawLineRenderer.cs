@@ -1,8 +1,5 @@
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using static UnityEditor.PlayerSettings;
-using UnityEngine.Device;
 
 public class DrawLineRenderer : MonoBehaviour
 {
