@@ -58,6 +58,9 @@ public class Entity : MonoBehaviour
     [SerializeField]
     private string[] _deathSounds;
 
+    [SerializeField]
+    private bool _isFinalTownBuilding = false;
+
     protected virtual void Start()
     {
         _renderer = GetComponent<Renderer>();
@@ -130,6 +133,12 @@ public class Entity : MonoBehaviour
         }
         else
         {
+            if (_isFinalTownBuilding && FindFirstObjectByType<TownResources>())
+            {
+                var town = FindFirstObjectByType<TownResources>();
+                town.townBuildings.Remove(this.gameObject);
+            }
+
             Destroy(gameObject);
         }
     }

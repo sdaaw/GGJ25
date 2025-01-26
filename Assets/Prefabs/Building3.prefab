@@ -139,6 +139,8 @@ MonoBehaviour:
     respawnTimer: 120
   _deathDebris: {fileID: 6044649376363412716, guid: a55cb5de4f3b21443b01000d05d5b369, type: 3}
   IsDead: 0
+  _deathSounds: []
+  _isFinalTownBuilding: 1
 --- !u!1 &7224213287479580392
 GameObject:
   m_ObjectHideFlags: 0
