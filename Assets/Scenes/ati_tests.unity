@@ -257,10 +257,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyWaves:
-  - enemyAmount: 4
+  - enemyAmount: 5
     waveEnemies:
     - {fileID: -8912890783498478793, guid: 04060144575170144a5503eb096953cd, type: 3}
-    - {fileID: -8912890783498478793, guid: 663d32e6682db3b45b15d8e0e298b26c, type: 3}
     waveSpawnPositions:
     - {fileID: 797448847}
     currentWaveEnemies: []

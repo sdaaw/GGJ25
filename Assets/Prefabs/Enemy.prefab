@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7127705101631153919}
   - component: {fileID: 8186578677908480627}
   - component: {fileID: 4393003385330847015}
+  - component: {fileID: 8111602141336634313}
   m_Layer: 0
   m_Name: EnemyFrontIdle0000
   m_TagString: Untagged
@@ -28,7 +29,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0.15, z: 0}
-  m_LocalScale: {x: 0.314385, y: 0.314385, z: 0.314385}
+  m_LocalScale: {x: -0.314385, y: 0.314385, z: 0.314385}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6013010560106889661}
@@ -110,6 +111,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &8111602141336634313
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 363753869300353933}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9dd9103d033fcde428f6ff44292b5b6a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7587846489294883225
 GameObject:
   m_ObjectHideFlags: 0
