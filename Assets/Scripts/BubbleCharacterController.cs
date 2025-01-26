@@ -199,7 +199,11 @@ public class BubbleCharacterController : Entity
     {
         base.OnHealthChanged(amount);
 
-        GameManager.instance.HealthValueText.text = CurrentHealth.ToString();
+        if (GameManager.instance != null && GameManager.instance.HealthValueText)
+        {
+            GameManager.instance.HealthValueText.text = CurrentHealth.ToString();
+        }
+        
         if (amount > 0)
         {
             IncreaseSize(amount);
@@ -218,7 +222,8 @@ public class BubbleCharacterController : Entity
         if (_takeDmgAnimTimer <= 0)
         {
             _takeDmgAnimTimer = _takeDmgAnimTimerMax;
-            StartCoroutine(DamageVisual());   
+            StartCoroutine(DamageVisual());
+            _faceAnimator.SetTrigger("DamageTrigger");
         } 
     }
 
@@ -257,7 +262,7 @@ public class BubbleCharacterController : Entity
 
         mousey = Mathf.Clamp(mousey, _ycameraClampMin, _ycameraClampMax);
 
-        Vector3 dir = new Vector3(0, 0, -Mathf.Clamp(CurrentHealth, 5, _cameraDistanceMax));
+        Vector3 dir = new Vector3(0, 0, -Mathf.Clamp(CurrentHealth, 8, _cameraDistanceMax));
         Quaternion rotation = Quaternion.Euler(mousey, mousex, 0);
         _camera.transform.position = transform.position + rotation * dir;
         _camera.transform.LookAt(transform.position);
