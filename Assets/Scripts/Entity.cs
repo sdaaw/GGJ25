@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Entity : MonoBehaviour
 {
@@ -45,10 +46,22 @@ public class Entity : MonoBehaviour
 
     public EnemyWave waveOwner = null;
 
+    [SerializeField]
+    private GameObject _deathDebris;
+
+
+    private float xsway, xtime, ztime, zsway;
+
+    private bool _isDying;
+
     protected virtual void Start()
     {
         _renderer = GetComponent<Renderer>();
         _animator = GetComponentInChildren<Animator>();
+        xsway = 4f;
+        xtime = 0.2f;
+        ztime = 0.5f;
+        zsway = 2f;
     }
 
     void Update()
@@ -90,9 +103,11 @@ public class Entity : MonoBehaviour
         {
             waveOwner.currentWaveEnemies.Remove(enemy);
         }
-
+        
         if (hasDeathAnim)
         {
+            if (_isDying) return;
+            _isDying = true;
             StartCoroutine(WaitDeath());
         }
         else if (GetComponent<BubbleCharacterController>())
@@ -112,12 +127,19 @@ public class Entity : MonoBehaviour
     private IEnumerator ReturnToMainMenuOnDeath()
     {
         yield return new WaitForSeconds(3);
-        Application.LoadLevel("MainMenu");
+        SceneManager.LoadScene("MainMenu");
     }
 
     private IEnumerator WaitDeath()
     {
-        yield return new WaitForSeconds(1);
+        for(int i = 0; i < 10; i++)
+        {
+            Vector3 pos = new Vector3(transform.position.x + Random.Range(-5, 5), transform.position.y + Random.Range(1f, 5f), transform.position.z + Random.Range(-5, 5));
+            GameObject a = Instantiate(_deathDebris, pos, Quaternion.identity);
+            a.GetComponent<DeathDebrisBehaviour>().startPos = pos;
+            a.GetComponent<DeathDebrisBehaviour>().GeneratePoints();
+            yield return new WaitForSeconds(0.05f);
+        }
         Destroy(gameObject);
     }
 
@@ -129,6 +151,15 @@ public class Entity : MonoBehaviour
         _renderer.material.color *= 2;
         yield return new WaitForSeconds(0.2f);
         _renderer.material.color /= 2;
+        if(_deathDebris)
+        {
+            for(int i = 0; i < 4; i++)
+            {
+                GameObject a = Instantiate(_deathDebris, transform.position, Quaternion.identity);
+                a.GetComponent<DeathDebrisBehaviour>().startPos = transform.position;
+                a.GetComponent<DeathDebrisBehaviour>().GeneratePoints();
+            } 
+        }
         _dmgCoroutinePlaying = false;
     }
 }

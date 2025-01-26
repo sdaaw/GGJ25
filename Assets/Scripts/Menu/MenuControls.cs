@@ -86,6 +86,7 @@ public class MenuControls : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.S) || Input.GetKeyUp(KeyCode.DownArrow)) 
         {
+            if (CurrentState == MenuState.Credits) return;
             _audioSource.clip = _sfxMenuNavigate;
             _pointerBall.GetComponent<PointerBall>().isIntroPhase = false;
             _audioSource.Play();
@@ -99,6 +100,7 @@ public class MenuControls : MonoBehaviour
 
         if(Input.GetKeyDown(KeyCode.W) || Input.GetKeyUp(KeyCode.UpArrow))
         {
+            if (CurrentState == MenuState.Credits) return;
             _audioSource.clip = _sfxMenuNavigate;
             _pointerBall.GetComponent<PointerBall>().isIntroPhase = false;
             _audioSource.Play();
@@ -142,6 +144,16 @@ public class MenuControls : MonoBehaviour
                 _whiteFadeInScreen.color = new Color(_whiteFadeInScreen.color.r, _whiteFadeInScreen.color.g, _whiteFadeInScreen.color.b, _whiteScreenAlpha);
             }
         }
+
+        if(IsPreparingGame) 
+        {
+            _whiteScreenAlpha += 0.15f * Time.deltaTime;
+            _whiteFadeInScreen.color = new Color(_whiteFadeInScreen.color.r, _whiteFadeInScreen.color.g, _whiteFadeInScreen.color.b, _whiteScreenAlpha);
+            if(_whiteScreenAlpha >= 1f)
+            {
+                SceneManager.LoadScene("Intro");
+            }
+        }
     }
 
     private void HandleSelection()
@@ -159,6 +171,8 @@ public class MenuControls : MonoBehaviour
         {
             _audioSource.clip = _sfxMenuGameStart;
             delay = 4f;
+            _whiteScreenAlpha = 0f;
+            _whiteFadeInScreen.gameObject.SetActive(true);
             IsPreparingGame = true;
         }
         _audioSource.Play();
@@ -176,11 +190,11 @@ public class MenuControls : MonoBehaviour
         {
             case MenuState.StartGame:
             {
-                SceneManager.LoadScene("MainSceneMikko");
                 break;
             }
             case MenuState.Credits:
             {
+                _whiteFadeInScreen.gameObject.SetActive(true);
                 _whiteScreenAlpha = 0f;
                 break;
             }
