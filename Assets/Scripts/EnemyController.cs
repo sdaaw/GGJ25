@@ -20,7 +20,14 @@ public class EnemyController : MonoBehaviour
 
     public void Update()
     {
-        CheckPlayerRangeToTown();
+        if (_player != null)
+        {
+            CheckPlayerRangeToTown();
+        }
+        else
+        {
+            _player = FindFirstObjectByType<BubbleCharacterController>();
+        }
     }
 
     public void CheckPlayerRangeToTown()

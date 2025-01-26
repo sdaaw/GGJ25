@@ -166,7 +166,7 @@ MonoBehaviour:
   _mouseSensitivity: 75
   _cameraFov: 90
   _cameraDistance: 10
-  _cameraDistanceMax: 50
+  _cameraDistanceMax: 150
   _ycameraClampMin: 5
   _ycameraClampMax: 70
   IsInvulnerable: 0
