@@ -37,7 +37,7 @@ public class Enemy : Entity
 
     private Color _barStartColor;
 
-    public float agroRange = 75f;
+    public float agroRange = 100f;
 
     protected virtual void Awake()
     {

@@ -35,6 +35,7 @@ public class ShootingEnemy : Enemy
     {
         base.Awake();
         Agent = GetComponent<NavMeshAgent>();
+        _shootTimer = Random.Range(0, _shootTimerMax);
     }
 
     protected override void Update()

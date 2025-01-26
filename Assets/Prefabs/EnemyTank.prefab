@@ -76,12 +76,19 @@ MonoBehaviour:
   _animator: {fileID: 0}
   scoreAmount: 15
   entityConsumeThreshold: 25
+  waveOwner:
+    enemyAmount: 0
+    waveEnemies: []
+    waveSpawnPositions: []
+    currentWaveEnemies: []
+    waveSpawnOwner: {fileID: 0}
   target: {fileID: 0}
   _targetPosition: {x: 0, y: 0, z: 0}
   _isEnabled: 1
   chaseTarget: 1
   _timerMax: 1
   _healthBarRange: 40
+  agroRange: 100
   _muzzleFlash: {fileID: 0}
   _bullet: {fileID: 7042849527460013837, guid: 5d92b812271a1ee4098c3504e6e069ef, type: 3}
   _bulletVelocity: 75
