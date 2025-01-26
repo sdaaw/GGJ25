@@ -125,6 +125,15 @@ public class DrawLineRenderer : MonoBehaviour
                 p.dmg = projectileCost;
                 p.owner = transform;
             }
+
+            ShootMode = false;
+
+            Cursor.lockState = CursorLockMode.Locked;
+            lineRenderer.enabled = false;
+            if (_targetSphere != null)
+            {
+                _targetSphere.SetActive(false);
+            }
         }
     }
 }

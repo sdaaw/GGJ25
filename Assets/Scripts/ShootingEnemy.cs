@@ -41,8 +41,11 @@ public class ShootingEnemy : Enemy
     {
         base.Update();
 
-        ShootLogic();
-
+        if (Vector3.Distance(_player.transform.position, transform.position) <= agroRange)
+        {
+            ShootLogic();
+        }
+        
         if (_animator != null)
         {
             _animator.SetFloat("Speed", Agent.velocity.magnitude);
@@ -61,9 +64,7 @@ public class ShootingEnemy : Enemy
 
         }
 
-        //TODO: need to change this, so enemies can turn around while moving to show samuels art
-        // transform.LookAt(target);
-        }
+    }
 
     public void ShootLogic()
     {
@@ -120,11 +121,6 @@ public class ShootingEnemy : Enemy
                 chaseTarget = true;
             }
         }
-
-    }
-
-    public void CheckPlayerAgroRange()
-    {
 
     }
 
