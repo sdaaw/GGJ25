@@ -41,7 +41,8 @@ public class GameManager : MonoBehaviour
         if (instance == null) { instance = this; }
         player = Instantiate(_playerPrefab, SpawnPoint.position, Quaternion.identity);
         _whiteFadeAlpha = _whiteFadeImage.color.a;
-        StateHandler.CurrentState = GameStateHandler.GameState.StartScene;
+        //StateHandler.CurrentState = GameStateHandler.GameState.StartScene;
+        StateHandler.CurrentState = GameStateHandler.GameState.InPlay;
     }
 
     private void Update()
