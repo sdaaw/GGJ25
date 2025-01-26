@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using UnityEditor.SceneManagement;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
@@ -15,13 +17,9 @@ public class GameManager : MonoBehaviour
     [HideInInspector]
     public GameObject player;
 
-    public TMP_Text _gameIntroText;
+    public TMP_Text _gameIntroText, _deathText;
 
-    [SerializeField]
-    private Image _whiteFadeImage;
-
-    [SerializeField]
-    private float _whiteFadeOutSpeed;
+    public Image whiteFadeImage;
 
     public static GameManager instance;
 
@@ -39,11 +37,18 @@ public class GameManager : MonoBehaviour
 
     private bool _introDone;
 
+    public AudioSource playerAudioSource;
+
+    public AudioClip deathAudioSfx;
+
     [SerializeField]
     private bool SKIP_INTRO;
 
+    private bool _isDeathScene;
+
     void Start()
     {
+        playerAudioSource = GetComponent<AudioSource>();
         ChatBoxController = GetComponent<UIChatBoxController>();
         StateHandler = GetComponent<GameStateHandler>();
         if (instance == null) { instance = this; }
@@ -51,10 +56,10 @@ public class GameManager : MonoBehaviour
         if(SKIP_INTRO)
         {
             StateHandler.CurrentState = GameStateHandler.GameState.InPlay;
-            _whiteFadeImage.gameObject.SetActive(false);
+            whiteFadeImage.gameObject.SetActive(false);
             return;
         }
-        _whiteFadeAlpha = _whiteFadeImage.color.a;
+        _whiteFadeAlpha = whiteFadeImage.color.a;
         StateHandler.CurrentState = GameStateHandler.GameState.StartScene;
         StartCoroutine(IntroTextVisual());
     }
@@ -65,11 +70,16 @@ public class GameManager : MonoBehaviour
         {
             if (!_introDone) return;
             _whiteFadeAlpha -= 0.1f * Time.deltaTime;
-            _whiteFadeImage.color = new Color(_whiteFadeImage.color.r, _whiteFadeImage.color.g, _whiteFadeImage.color.b, _whiteFadeAlpha);
+            whiteFadeImage.color = new Color(whiteFadeImage.color.r, whiteFadeImage.color.g, whiteFadeImage.color.b, _whiteFadeAlpha);
             if(_whiteFadeAlpha <= 0)
             {
                 StateHandler.CurrentState = GameStateHandler.GameState.InPlay;
             }
+        }
+
+        if(StateHandler.CurrentState == GameStateHandler.GameState.Death)
+        {
+            HandleDeath();
         }
     }
 
@@ -101,6 +111,34 @@ public class GameManager : MonoBehaviour
             yield return new WaitForSeconds(0.03f);
         }
         _introDone = true;
+    }
+
+    private void HandleDeath()
+    {
+        _whiteFadeAlpha += 0.3f * Time.deltaTime;
+        whiteFadeImage.color = new Color(whiteFadeImage.color.r, whiteFadeImage.color.g, whiteFadeImage.color.b, _whiteFadeAlpha);
+        if(_whiteFadeAlpha >= 1)
+        {
+            _whiteFadeAlpha = 1f;
+            _isDeathScene = false;
+            if(StateHandler.CurrentState == GameStateHandler.GameState.Death)
+            {
+                StateHandler.CurrentState = GameStateHandler.GameState.DeathScreen;
+                StartCoroutine(DeathMessageVisual());
+            }
+        }
+    }
+
+    IEnumerator DeathMessageVisual()
+    {
+        string[] script = new string[] { "Sorry, your bubble has burst .." };
+        for (int i = 0; i < script[0].Length; i++)
+        {
+            _gameIntroText.text += script[0][i];
+            yield return new WaitForSeconds(0.2f);
+        }
+        yield return new WaitForSeconds(3f);
+        SceneManager.LoadScene("MenuScene");
     }
 
 }

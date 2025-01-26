@@ -14,6 +14,8 @@ public class GameStateHandler : MonoBehaviour
         StartScene,
         InPlay,
         Paused,
+        Death,
+        DeathScreen
     }
 
     [SerializeField]
@@ -59,6 +61,17 @@ public class GameStateHandler : MonoBehaviour
             case GameState.InPlay:
             {
                 _gm.IsPlayerFrozen = false;
+                break;
+            }
+
+            case GameState.Death:
+            {
+                GameManager.instance.playerAudioSource.clip = GameManager.instance.deathAudioSfx;
+                GameManager.instance.playerAudioSource.Play();
+                GameManager.instance.whiteFadeImage.gameObject.SetActive(true);
+                Color c = GameManager.instance.whiteFadeImage.color;
+                GameManager.instance.whiteFadeImage.color = new Color(c.r, c.g, c.b, 0f);
+                
                 break;
             }
         }

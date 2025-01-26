@@ -58,8 +58,6 @@ public class BubbleCharacterController : Entity
 
     private Vector3 _movement;
 
-
-
     private void Awake()
     {
         _bubble = GetComponent<BubbleBehaviour>();
@@ -81,7 +79,8 @@ public class BubbleCharacterController : Entity
     void Update()
     {
         if(GameManager.instance != null && (GameManager.instance.IsPlayerFrozen || 
-           GameManager.instance.StateHandler.CurrentState == GameStateHandler.GameState.Paused)) return;
+           GameManager.instance.StateHandler.CurrentState == GameStateHandler.GameState.Paused ||
+           IsDead)) return;
 
         if (_takeDmgAnimTimer >= 0)
         {
@@ -103,19 +102,6 @@ public class BubbleCharacterController : Entity
         if (Input.GetKeyDown(KeyCode.PageDown))
         {
             _bubble.DisplacementSpeed -= 0.1f;
-        }
-
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            /*
-            if (IsInvulnerable) return;
-            if (amount < 0)
-            {
-                IsInvulnerable = true;
-            }  
-            */
-            _faceAnimator.SetTrigger("DamageTrigger");
-            CurrentHealth -= 0.5f;
         }
 
         if(Input.GetKey(KeyCode.T))

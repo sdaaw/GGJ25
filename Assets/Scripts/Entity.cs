@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -49,6 +50,8 @@ public class Entity : MonoBehaviour
     [SerializeField]
     private GameObject _deathDebris;
 
+    public bool IsDead;
+
 
     private float xsway, xtime, ztime, zsway;
 
@@ -90,6 +93,9 @@ public class Entity : MonoBehaviour
 
     public void OnDie()
     {
+        if (IsDead) return;
+
+        IsDead = true;
         SoundManager.PlayASource("Death");
         if (_animator != null && hasDeathAnim)
         {
@@ -115,8 +121,8 @@ public class Entity : MonoBehaviour
             Cursor.lockState = CursorLockMode.None;
             // TODO: player died here
 
-            // GameManager.instance.StateHandler.CurrentState = GameStateHandler.GameState.PlayerDeath;
-            StartCoroutine(ReturnToMainMenuOnDeath());
+            GameManager.instance.StateHandler.CurrentState = GameStateHandler.GameState.Death;
+            //StartCoroutine(ReturnToMainMenuOnDeath());
         }
         else
         {
@@ -127,7 +133,7 @@ public class Entity : MonoBehaviour
     private IEnumerator ReturnToMainMenuOnDeath()
     {
         yield return new WaitForSeconds(3);
-        SceneManager.LoadScene("MainMenu");
+        SceneManager.LoadScene("MenuScene");
     }
 
     private IEnumerator WaitDeath()
