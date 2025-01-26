@@ -45,12 +45,12 @@ public class MenuIntro : MonoBehaviour
         _pointerBallRect = _pointerBall.GetComponent<RectTransform>();
         _pointerBall.GetComponent<PointerBall>().isIntroPhase = true;
 
-
-
         _bgmAudioSource = GetComponent<AudioSource>();
         _gameActive = true;
-        _bgmAudioSource.clip = _bgmIntro;
+        _bgmAudioSource.clip = _bgm;
         _bgmAudioSource.Play();
+
+        _bgmAudioSource.volume = 0.7f;
         _characterArt.color = new Color(_characterArt.color.r, _characterArt.color.g, _characterArt.color.b, 0f);
         _gameLogo.color = new Color(_gameLogo.color.r, _gameLogo.color.g, _gameLogo.color.b, 0f);
         _isIntroFade = true;
@@ -66,14 +66,6 @@ public class MenuIntro : MonoBehaviour
             return;
         }
 
-        _timer += 1 * Time.deltaTime;
-        if(_timer >= _bgmAudioSource.clip.length)
-        {
-            _bgmAudioSource.clip = _bgm;
-            _bgmAudioSource.Play();
-            _timer = 0;
-        }
-
         if(_isIntroFade)
         {
             if(_fadeScreenAlpha <= 0f)
@@ -84,7 +76,7 @@ public class MenuIntro : MonoBehaviour
             }
             _fadeScreenAlpha -= _fadeSpeed * Time.deltaTime;
             _logoText.color = new Color(_logoText.color.r, _logoText.color.g, _logoText.color.b, _fadeScreenAlpha);
-            _fgjLogo.color = new Color(_fgjLogo.color.r, _fgjLogo.color.g, _fgjLogo.color.b, _fadeScreenAlpha * _fgjLogo.color.a);
+            _fgjLogo.color = new Color(_fgjLogo.color.r, _fgjLogo.color.g, _fgjLogo.color.b, _fadeScreenAlpha);
             _screenFadeImage.color = new Color(_screenFadeImage.color.r, _screenFadeImage.color.g, _screenFadeImage.color.b, _fadeScreenAlpha);
         } else
         {

@@ -176,7 +176,7 @@ public class MenuControls : MonoBehaviour
         {
             case MenuState.StartGame:
             {
-                SceneManager.LoadScene("SampleScene_Oskar");
+                SceneManager.LoadScene("MainSceneMikko");
                 break;
             }
             case MenuState.Credits:
