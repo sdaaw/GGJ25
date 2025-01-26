@@ -103,7 +103,7 @@ public class BubbleCharacterController : Entity
             CurrentHealth -= 0.5f;
         }
 
-        if(Input.GetKeyDown(KeyCode.T))
+        if(Input.GetKey(KeyCode.T))
         {
             CurrentHealth += 0.5f;
         }

@@ -25,6 +25,8 @@ public class DrawLineRenderer : MonoBehaviour
 
     private List<Vector3> pointList = new List<Vector3>();
 
+    private BubbleCharacterController _player;
+
     private void Awake()
     {
         ShootMode = false;
@@ -32,6 +34,7 @@ public class DrawLineRenderer : MonoBehaviour
         {
             _targetSphere = GameObject.Instantiate(_targetSpherePrefab, transform.position, Quaternion.identity);
         }
+        _player = GetComponent<BubbleCharacterController>();
     }
 
     private void Start()
@@ -88,7 +91,7 @@ public class DrawLineRenderer : MonoBehaviour
         // clamp mouseposition to max radius
         var difference = _mousePos - transform.position;
         var direction = difference.normalized;
-        var distance = Mathf.Min(maxRadius, difference.magnitude);
+        var distance = Mathf.Min(maxRadius + (_player.CurrentHealth / 10 * 2), difference.magnitude);
         var endPosition = transform.position + direction * distance;
 
         pointList.Clear();
