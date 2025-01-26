@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.Audio;
@@ -31,7 +32,7 @@ public class MenuControls : MonoBehaviour
     private Image _whiteFadeInScreen;
 
     [SerializeField]
-    private AudioClip _sfxMenuNavigate, _sfxMenuGameStart;
+    private AudioClip _sfxMenuNavigate, _sfxMenuGameStart, _sfxMenuSelect, _sfxMenuBack;
 
     public static MenuControls Instance;
 
@@ -41,17 +42,25 @@ public class MenuControls : MonoBehaviour
     public float elementAnimSpeed;
 
     public bool IsPreparingGame;
+
+    [SerializeField]
+    private GameObject _creditsPanel;
     public enum MenuState
     {
         None,
+        Main,
         StartGame,
         Credits,
         Exit
     }
 
+    private bool _switchingToCredits;
+
     public MenuState CurrentState;
 
     private MenuState _previousState;
+
+    public float _whiteScreenAlpha;
 
     private void Awake()
     {
@@ -77,6 +86,7 @@ public class MenuControls : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.S) || Input.GetKeyUp(KeyCode.DownArrow)) 
         {
+            _audioSource.clip = _sfxMenuNavigate;
             _pointerBall.GetComponent<PointerBall>().isIntroPhase = false;
             _audioSource.Play();
             _selectionIndex++;
@@ -86,9 +96,10 @@ public class MenuControls : MonoBehaviour
             }
             HandleSelection();
         }
-        if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyUp(KeyCode.UpArrow))
-        {
 
+        if(Input.GetKeyDown(KeyCode.W) || Input.GetKeyUp(KeyCode.UpArrow))
+        {
+            _audioSource.clip = _sfxMenuNavigate;
             _pointerBall.GetComponent<PointerBall>().isIntroPhase = false;
             _audioSource.Play();
             _selectionIndex--;
@@ -99,11 +110,37 @@ public class MenuControls : MonoBehaviour
             HandleSelection();
         }
 
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            if(CurrentState == MenuState.Credits)
+            {
+                StartCoroutine(HandleMenuSelectDelay(MenuState.Main, 0f, _sfxMenuBack));
+            }
+        }
+
         if(Input.GetKeyDown(KeyCode.Space)) 
         {
-            if (CurrentState != MenuState.None) return;
+            if (CurrentState != MenuState.Main) return;
 
-            StartCoroutine(HandleMenuSelectDelay(_selectedMenuObject.GetComponent<MenuSelectable>().MenuState, 1f));
+            StartCoroutine(HandleMenuSelectDelay(_selectedMenuObject.GetComponent<MenuSelectable>().MenuState, 0f, _sfxMenuSelect));
+        }
+
+        if (CurrentState == MenuState.Credits)
+        {
+            if (_whiteFadeInScreen.color.a >= 1f && !_creditsPanel.activeSelf)
+            {
+                _whiteScreenAlpha = 1f;
+                _creditsPanel.SetActive(true);
+            }
+            if (!_creditsPanel.activeSelf)
+            {
+                _whiteScreenAlpha += 0.7f * Time.deltaTime;
+                _whiteFadeInScreen.color = new Color(_whiteFadeInScreen.color.r, _whiteFadeInScreen.color.g, _whiteFadeInScreen.color.b, _whiteScreenAlpha);
+            } else
+            {
+                _whiteScreenAlpha -= 0.7f * Time.deltaTime;
+                _whiteFadeInScreen.color = new Color(_whiteFadeInScreen.color.r, _whiteFadeInScreen.color.g, _whiteFadeInScreen.color.b, _whiteScreenAlpha);
+            }
         }
     }
 
@@ -115,15 +152,15 @@ public class MenuControls : MonoBehaviour
         _pointerBall.GetComponent<PointerBall>().MoveSelectionBall(_selectedMenuObject.GetComponent<MenuSelectable>().SquarePosition());
     }
 
-    IEnumerator HandleMenuSelectDelay(MenuState NextState, float delay)
+    IEnumerator HandleMenuSelectDelay(MenuState NextState, float delay, AudioClip sound)
     {
-        if(NextState == MenuState.StartGame)
+        _audioSource.clip = sound;
+        if (NextState == MenuState.StartGame)
         {
+            _audioSource.clip = _sfxMenuGameStart;
             delay = 4f;
             IsPreparingGame = true;
         }
-        //menu select sound here
-        _audioSource.clip = _sfxMenuGameStart;
         _audioSource.Play();
         yield return new WaitForSeconds(delay);
         CurrentState = NextState;
@@ -144,15 +181,19 @@ public class MenuControls : MonoBehaviour
             }
             case MenuState.Credits:
             {
+                _whiteScreenAlpha = 0f;
                 break;
             }
             case MenuState.Exit:
             {
                 break;
             }
+            case MenuState.Main:
+            {
+                break;
+            }
         }
-        _audioSource.clip = _sfxMenuNavigate;
-        //_pausedCanvasParent.SetActive(CurrentState == GameState.Paused);
+        _creditsPanel.SetActive(CurrentState == MenuState.Credits);
         //_inPlayPanel.SetActive(CurrentState == GameState.InPlay);
     }
 

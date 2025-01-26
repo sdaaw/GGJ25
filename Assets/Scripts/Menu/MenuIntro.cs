@@ -7,7 +7,7 @@ public class MenuIntro : MonoBehaviour
 {
 
     [SerializeField]
-    private Image _allu, _screenFadeImage, _gameLogo, _fgjLogo;
+    private Image _characterArt, _screenFadeImage, _gameLogo, _fgjLogo;
 
     private AudioSource _bgmAudioSource;
 
@@ -24,7 +24,7 @@ public class MenuIntro : MonoBehaviour
     [SerializeField]
     private float _fadeSpeed;
 
-    private float _alluAlpha, _fadeScreenAlpha;
+    private float _characterAlpha, _fadeScreenAlpha;
 
     [SerializeField]
     private GameObject _pointerBall;
@@ -48,9 +48,10 @@ public class MenuIntro : MonoBehaviour
 
 
         _bgmAudioSource = GetComponent<AudioSource>();
-        //_audioSource.clip = _bgmIntro;
-        //_audioSource.Play();
-        _allu.color = new Color(_allu.color.r, _allu.color.g, _allu.color.b, 0f);
+        _gameActive = true;
+        _bgmAudioSource.clip = _bgmIntro;
+        _bgmAudioSource.Play();
+        _characterArt.color = new Color(_characterArt.color.r, _characterArt.color.g, _characterArt.color.b, 0f);
         _gameLogo.color = new Color(_gameLogo.color.r, _gameLogo.color.g, _gameLogo.color.b, 0f);
         _isIntroFade = true;
         _fadeScreenAlpha = 1f;
@@ -59,12 +60,6 @@ public class MenuIntro : MonoBehaviour
 
     void Update()
     {
-        if(Input.GetKeyUp(KeyCode.R))
-        {
-            _gameActive = true;
-            _bgmAudioSource.clip = _bgmIntro;
-            _bgmAudioSource.Play();
-        }
 
         if(!_gameActive)
         {
@@ -104,7 +99,7 @@ public class MenuIntro : MonoBehaviour
 
     private void FadeCharacterArtIn()
     {
-        if (_alluAlpha >= 0.7f)
+        if (_characterAlpha >= 0.7f)
         {
             return;
         }
@@ -113,9 +108,9 @@ public class MenuIntro : MonoBehaviour
             StartCoroutine(InterpolateBezier(_pointerBallCurvePrecision, _pointerBallRect, _pointerBallSpeed));
             _pointerBall.GetComponent<PointerBall>().isIntroPhase = false;
         }
-        _alluAlpha += 0.1f * Time.deltaTime;
-        _allu.color = new Color(_allu.color.r, _allu.color.g, _allu.color.b, _alluAlpha);
-        _gameLogo.color = new Color(_gameLogo.color.r, _gameLogo.color.g, _gameLogo.color.b, _alluAlpha);
+        _characterAlpha += 0.1f * Time.deltaTime;
+        _characterArt.color = new Color(_characterArt.color.r, _characterArt.color.g, _characterArt.color.b, _characterAlpha);
+        _gameLogo.color = new Color(_gameLogo.color.r, _gameLogo.color.g, _gameLogo.color.b, _characterAlpha);
     }
 
 
