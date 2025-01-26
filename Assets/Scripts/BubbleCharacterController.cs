@@ -87,24 +87,7 @@ public class BubbleCharacterController : Entity
             _takeDmgAnimTimer -= Time.deltaTime;
         }
 
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            _bubble.DisplacementPower -= 0.1f;
-        }
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            _bubble.DisplacementPower += 0.1f;
-        }
-        if (Input.GetKeyDown(KeyCode.PageUp))
-        {
-            _bubble.DisplacementSpeed += 0.1f;
-        }
-        if (Input.GetKeyDown(KeyCode.PageDown))
-        {
-            _bubble.DisplacementSpeed -= 0.1f;
-        }
-
-        if(Input.GetKey(KeyCode.T))
+        if(Input.GetKey(KeyCode.P))
         {
             CurrentHealth += 0.5f;
         }
@@ -215,7 +198,10 @@ public class BubbleCharacterController : Entity
         
         if (amount > 0)
         {
-            IncreaseSize(amount);
+            if (CurrentHealth <= 750)
+            {
+                IncreaseSize(amount);
+            }
         }
         else
         {

@@ -148,6 +148,8 @@ GameObject:
   - component: {fileID: 4632810502236808219}
   - component: {fileID: 5170613847900612927}
   - component: {fileID: 5170613847900612926}
+  - component: {fileID: -2776158999699068868}
+  - component: {fileID: 7413712164212617380}
   m_Layer: 8
   m_Name: Building5
   m_TagString: Untagged
@@ -224,3 +226,52 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &-2776158999699068868
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5404561684632600225}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &7413712164212617380
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5404561684632600225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3315fe05b04d1114ab965e531b176b6c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 0
+  _currentHealth: 50
+  hasDeathAnim: 1
+  _animator: {fileID: 0}
+  scoreAmount: 15
+  entityConsumeThreshold: 55
+  waveOwner:
+    enemyAmount: 0
+    waveEnemies: []
+    waveSpawnPositions: []
+    currentWaveEnemies: []
+    waveSpawnOwner: {fileID: 0}
+    timer: 0
+    respawnTimer: 120
+  _deathDebris: {fileID: 6044649376363412716, guid: a55cb5de4f3b21443b01000d05d5b369, type: 3}
+  IsDead: 0

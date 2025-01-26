@@ -84,6 +84,8 @@ MonoBehaviour:
     waveSpawnOwner: {fileID: 0}
     timer: 0
     respawnTimer: 120
+  _deathDebris: {fileID: 0}
+  IsDead: 0
   target: {fileID: 0}
   _targetPosition: {x: 0, y: 0, z: 0}
   _isEnabled: 1
@@ -94,7 +96,7 @@ MonoBehaviour:
   _muzzleFlash: {fileID: 0}
   _bullet: {fileID: 7042849527460013837, guid: 5d92b812271a1ee4098c3504e6e069ef, type: 3}
   _bulletVelocity: 75
-  _damage: 5
+  _damage: 4
   _shootTimerMax: 3
   _shootSound: 
   Agent: {fileID: 0}

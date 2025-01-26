@@ -59,5 +59,65 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 08781b463c77d9d4783e9b82ea92b3f4, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -1173154546971829555}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 08781b463c77d9d4783e9b82ea92b3f4, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -5625674284822703886}
   m_SourcePrefab: {fileID: 100100000, guid: 08781b463c77d9d4783e9b82ea92b3f4, type: 3}
+--- !u!1 &2601077243995168513 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 08781b463c77d9d4783e9b82ea92b3f4, type: 3}
+  m_PrefabInstance: {fileID: 2943533541367095888}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &-1173154546971829555
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2601077243995168513}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.011741813, y: 0.010160277, z: 0.006154463}
+  m_Center: {x: -0.00009898561, y: -0.00015382629, z: -0.0034731864}
+--- !u!114 &-5625674284822703886
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2601077243995168513}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3315fe05b04d1114ab965e531b176b6c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 0
+  _currentHealth: 35
+  hasDeathAnim: 1
+  _animator: {fileID: 0}
+  scoreAmount: 15
+  entityConsumeThreshold: 45
+  waveOwner:
+    enemyAmount: 0
+    waveEnemies: []
+    waveSpawnPositions: []
+    currentWaveEnemies: []
+    waveSpawnOwner: {fileID: 0}
+    timer: 0
+    respawnTimer: 120
+  _deathDebris: {fileID: 6044649376363412716, guid: a55cb5de4f3b21443b01000d05d5b369, type: 3}
+  IsDead: 0

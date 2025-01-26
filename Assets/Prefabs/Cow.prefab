@@ -148,7 +148,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 1
   _currentHealth: 1
-  hasDeathAnim: 0
+  hasDeathAnim: 1
   _animator: {fileID: 0}
   scoreAmount: 0.25
   entityConsumeThreshold: 0
@@ -158,6 +158,10 @@ MonoBehaviour:
     waveSpawnPositions: []
     currentWaveEnemies: []
     waveSpawnOwner: {fileID: 0}
+    timer: 0
+    respawnTimer: 120
+  _deathDebris: {fileID: 6044649376363412716, guid: a55cb5de4f3b21443b01000d05d5b369, type: 3}
+  IsDead: 0
   target: {fileID: 0}
   _targetPosition: {x: 0, y: 0, z: 0}
   _isEnabled: 1
