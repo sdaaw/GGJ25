@@ -40,10 +40,25 @@ public class BubbleCharacterController : Entity
     public LayerMask testLayer;
 
     [SerializeField]
+    private float _gravity, _groundDistance;
+
+    private bool _isGrounded;
+
+    [SerializeField]
+    private Transform _groundSensor;
+
+    [SerializeField]
+    private LayerMask _groundMask;
+
+    [SerializeField]
     private Animator _faceAnimator;
 
     private float _takeDmgAnimTimer;
     private float _takeDmgAnimTimerMax = 2;
+
+    private Vector3 _movement;
+
+
 
     private void Awake()
     {
@@ -56,6 +71,8 @@ public class BubbleCharacterController : Entity
         Cursor.lockState = CursorLockMode.Locked;
         _controller = GetComponent<CharacterController>();
         //_camera.transform.SetParent(transform, false);
+
+        GameManager.instance.HealthValueText.text = CurrentHealth.ToString();
 
     }
 
@@ -251,6 +268,7 @@ public class BubbleCharacterController : Entity
     }
     void LateUpdate()
     {
+
         MouseCameraRotation();
     }
 
@@ -270,16 +288,24 @@ public class BubbleCharacterController : Entity
 
     private void HandleInput()
     {
-        float x = Input.GetAxis("Horizontal") * _movementSpeed * Time.deltaTime;
-        float y = Input.GetAxis("Vertical") * _movementSpeed * Time.deltaTime;
-
-
-        Vector3 movement = _camera.transform.right * x + _camera.transform.forward * y;
-        movement.y = 0f;
-
-        _controller.Move(movement);
-        if (movement.magnitude != 0f)
+        _groundDistance = transform.localScale.x;
+        _isGrounded = Physics.CheckSphere(_groundSensor.transform.position, _groundDistance, _groundMask);
+        if (_isGrounded)
         {
+            float x = Input.GetAxis("Horizontal") * _movementSpeed * Time.deltaTime;
+            float y = Input.GetAxis("Vertical") * _movementSpeed * Time.deltaTime;
+
+
+            _movement = _camera.transform.right * x + _camera.transform.forward * y;
+        }
+        _movement.y = 0f;
+
+        _movement.y += _gravity;
+
+        _controller.Move(_movement);
+        if (_movement.magnitude != 0f)
+        {
+            if (!_isGrounded) return;
             _bubble.IsMoving = true;
             transform.Rotate(Vector3.up * Input.GetAxis("Mouse X") * _mouseSensitivity * Time.deltaTime);
 
