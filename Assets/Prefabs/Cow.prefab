@@ -12,7 +12,8 @@ GameObject:
   - component: {fileID: 7870269766004362133}
   - component: {fileID: 8340147007220359914}
   - component: {fileID: -5278934329412591166}
-  - component: {fileID: 5807052668418070347}
+  - component: {fileID: -1249713073229583880}
+  - component: {fileID: 6793144745361724955}
   m_Layer: 0
   m_Name: Cow
   m_TagString: Untagged
@@ -133,7 +134,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 10, y: 10, z: 0.2}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &5807052668418070347
+--- !u!114 &-1249713073229583880
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -142,10 +143,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 8729709899862910256}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3315fe05b04d1114ab965e531b176b6c, type: 3}
+  m_Script: {fileID: 11500000, guid: 03812b21479969f43a23ab243332dba5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 0
+  type: 1
   _currentHealth: 1
   hasDeathAnim: 0
   _animator: {fileID: 0}
@@ -157,3 +158,32 @@ MonoBehaviour:
     waveSpawnPositions: []
     currentWaveEnemies: []
     waveSpawnOwner: {fileID: 0}
+  target: {fileID: 0}
+  _targetPosition: {x: 0, y: 0, z: 0}
+  _isEnabled: 1
+  chaseTarget: 0
+  _timerMax: 1
+  _healthBarRange: 0
+  agroRange: 100
+--- !u!195 &6793144745361724955
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8729709899862910256}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 1.61
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 1
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 6.75
+  m_BaseOffset: 4.3
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4

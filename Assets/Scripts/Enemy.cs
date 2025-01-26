@@ -56,7 +56,6 @@ public class Enemy : Entity
     {
         if (_isEnabled)
         {
-            if (target == null) return;
             if (chaseTarget && Vector3.Distance(_player.transform.position, transform.position) <= agroRange)
             {
                 _agent.SetDestination(target.position);
@@ -67,6 +66,7 @@ public class Enemy : Entity
                 _agent.SetDestination(_targetPosition);
             }
 
+            if (target == null) return;
             transform.LookAt(new Vector3(target.position.x, target.position.y, target.position.z));
             transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
 
