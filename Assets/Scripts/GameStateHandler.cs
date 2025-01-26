@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameStateHandler : MonoBehaviour
 {
@@ -15,7 +16,8 @@ public class GameStateHandler : MonoBehaviour
         InPlay,
         Paused,
         Death,
-        DeathScreen
+        DeathScreen,
+        Win
     }
 
     [SerializeField]
@@ -72,6 +74,15 @@ public class GameStateHandler : MonoBehaviour
                 Color c = GameManager.instance.whiteFadeImage.color;
                 GameManager.instance.whiteFadeImage.color = new Color(c.r, c.g, c.b, 0f);
                 
+                break;
+            }
+
+            case GameState.Win:
+            {
+                GameManager.instance.winScreen.gameObject.SetActive(true);
+                Color c = GameManager.instance.winScreen.color;
+                GameManager.instance.winScreen.color = new Color(c.r, c.g, c.b, 0f);
+                _gm.IsPlayerFrozen = true;
                 break;
             }
         }

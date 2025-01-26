@@ -45,6 +45,10 @@ public class GameManager : MonoBehaviour
 
     private bool _isDeathScene;
 
+    public Image winScreen;
+
+    private TownResources _finalTown;
+
     void Start()
     {
         playerAudioSource = GetComponent<AudioSource>();
@@ -61,6 +65,7 @@ public class GameManager : MonoBehaviour
         _whiteFadeAlpha = whiteFadeImage.color.a;
         StateHandler.CurrentState = GameStateHandler.GameState.StartScene;
         StartCoroutine(IntroTextVisual());
+        _finalTown = FindFirstObjectByType<TownResources>();
     }
 
     private void Update()
@@ -79,6 +84,17 @@ public class GameManager : MonoBehaviour
         if(StateHandler.CurrentState == GameStateHandler.GameState.Death)
         {
             HandleDeath();
+        }
+
+        if(_finalTown != null && _finalTown.townBuildings.Count <= 90)
+        {
+            StateHandler.CurrentState = GameStateHandler.GameState.Win;
+            HandleWin();
+
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                SceneManager.LoadScene("MenuScene");
+            }
         }
     }
 
@@ -124,6 +140,22 @@ public class GameManager : MonoBehaviour
             {
                 StateHandler.CurrentState = GameStateHandler.GameState.DeathScreen;
                 StartCoroutine(DeathMessageVisual());
+            }
+        }
+    }
+
+    private void HandleWin()
+    {
+        _whiteFadeAlpha += 0.3f * Time.deltaTime;
+        winScreen.color = new Color(winScreen.color.r, winScreen.color.g, winScreen.color.b, _whiteFadeAlpha);
+        if (_whiteFadeAlpha >= 1)
+        {
+            _whiteFadeAlpha = 1f;
+            // _isDeathScene = false;
+            if (StateHandler.CurrentState == GameStateHandler.GameState.Win)
+            {
+                StateHandler.CurrentState = GameStateHandler.GameState.Win;
+                // StartCoroutine(DeathMessageVisual());
             }
         }
     }
