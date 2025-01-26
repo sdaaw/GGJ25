@@ -10,6 +10,7 @@ public class DrawLineRenderer : MonoBehaviour
     public float curveHeight = 15;
     public float maxRadius = 20;
     public bool ShootMode = false;
+    public float projectileCost = 1;
 
     [SerializeField]
     private Vector3 _mousePos;
@@ -108,9 +109,11 @@ public class DrawLineRenderer : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
-            Debug.Log(endPosition);
-            // TODO: shoot/fire projectile
-            
+            // Debug.Log(endPosition);
+            // TODO: hold to fire bigger ammo at cost of more mass
+
+            GetComponent<BubbleCharacterController>().CurrentHealth -= projectileCost;
+
             var projectile = GameObject.Instantiate(_projectilePrefab, transform.position, Quaternion.identity);
             var p = projectile.GetComponent<Projectile>();
             if(p)
@@ -119,8 +122,8 @@ public class DrawLineRenderer : MonoBehaviour
                 p.finalPosition = endPosition;
                 p.curveHeight = curveHeight;
                 p.velocity = 15;
-                // p.pointList = pointList;
-                // p.enabled = true;
+                p.dmg = projectileCost;
+                p.owner = transform;
             }
         }
     }

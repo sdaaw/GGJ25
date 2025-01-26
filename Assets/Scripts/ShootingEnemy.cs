@@ -43,9 +43,27 @@ public class ShootingEnemy : Enemy
 
         ShootLogic();
 
+        if (_animator != null)
+        {
+            _animator.SetFloat("Speed", Agent.velocity.magnitude);
+
+            // var angle = Vector3.Angle(transform.TransformDirection(a), 
+            //    Camera.main.transform.TransformDirection(Vector3.forward));
+            Debug.Log(Vector3.Dot(transform.position, Camera.main.transform.position));
+            if (Vector3.Dot(transform.right, Camera.main.transform.position) > 0)
+            {
+                _animator.SetBool("PlaySideAnim", true);
+            }
+            else
+            { 
+                _animator.SetBool("PlaySideAnim", false);
+            }
+
+        }
+
         //TODO: need to change this, so enemies can turn around while moving to show samuels art
         // transform.LookAt(target);
-    }
+        }
 
     public void ShootLogic()
     {
@@ -67,6 +85,12 @@ public class ShootingEnemy : Enemy
     {
         GameObject bullet = Instantiate(_bullet, transform.position + transform.forward, Quaternion.identity);
         bullet.GetComponent<Bullet>().Activate(_bulletVelocity, transform.forward, transform, _damage);
+
+        if (_animator != null)
+        {
+            _animator.SetTrigger("Shoot");
+        }
+
 
         if (_shootSound != "")
         {

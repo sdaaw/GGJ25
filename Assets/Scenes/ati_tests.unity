@@ -257,7 +257,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyWaves:
-  - enemyAmount: 3
+  - enemyAmount: 5
     waveEnemies:
     - {fileID: -8912890783498478793, guid: 04060144575170144a5503eb096953cd, type: 3}
     waveSpawnPositions:
@@ -806,7 +806,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1103173672366093893, guid: 6b0734d1ac1f8064c9db90f2f28d2eda, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.02
       objectReference: {fileID: 0}
     - target: {fileID: 1103173672366093893, guid: 6b0734d1ac1f8064c9db90f2f28d2eda, type: 3}
       propertyPath: m_LocalPosition.z
@@ -952,7 +952,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!108 &1064236358
 Light:
   m_ObjectHideFlags: 0

@@ -22,7 +22,7 @@ public class Entity : MonoBehaviour
         set
         {
             var change = (_currentHealth - value) * (-1);
-            Debug.Log(change);
+            // Debug.Log(change);
             _currentHealth = value;
             OnHealthChanged(change);
         }
@@ -46,7 +46,7 @@ public class Entity : MonoBehaviour
     protected virtual void Start()
     {
         _renderer = GetComponent<Renderer>();
-        _animator = GetComponent<Animator>();
+        _animator = GetComponentInChildren<Animator>();
     }
 
     void Update()
