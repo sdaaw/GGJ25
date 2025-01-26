@@ -55,6 +55,9 @@ public class Entity : MonoBehaviour
 
     private bool _isDying;
 
+    [SerializeField]
+    private string[] _deathSounds;
+
     protected virtual void Start()
     {
         _renderer = GetComponent<Renderer>();
@@ -94,10 +97,13 @@ public class Entity : MonoBehaviour
         if (IsDead) return;
 
         IsDead = true;
-        SoundManager.PlayASource("Death");
+        if (_deathSounds.Length > 0)
+        {
+            SoundManager.PlayASource(_deathSounds[Random.Range(0,_deathSounds.Length)]);
+        }
         if (_animator != null && hasDeathAnim)
         {
-            _animator.SetTrigger("Death");
+            // _animator.SetTrigger("Death");
         }
 
         var econ = FindFirstObjectByType<EnemyController>();
